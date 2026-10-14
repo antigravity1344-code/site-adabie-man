@@ -1,0 +1,131 @@
+.commentsSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5dfd1;
+  direction: rtl;
+  text-align: right;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  max-width: 100%;
+}
+
+.input,
+.textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border: 1px solid #d8d0c2;
+  border-radius: 10px;
+  background: #fff;
+  direction: rtl;
+  text-align: right;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.submitButton {
+  align-self: flex-start;
+  padding: 10px 22px;
+  min-height: 44px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: #2f2a24;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+  touch-action: manipulation;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #b3261e;
+  font-size: 0.85rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 100%;
+}
+
+.commentItem {
+  background: #f6f5f0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 6px;
+}
+
+.commentName {
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.commentDate {
+  font-size: 0.75rem;
+  color: #888;
+  white-space: normal;
+}
+
+.commentBody {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #333;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+@media (max-width: 480px) {
+  .commentItem {
+    padding: 12px 14px;
+  }
+
+  .submitButton {
+    align-self: stretch;
+    text-align: center;
+  }
+}

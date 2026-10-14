@@ -1,0 +1,76 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "poems"
+    label: "شعرها"
+    folder: "src/content/poems"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "عنوان", name: "title", widget: "string" }
+      - { label: "تاریخ", name: "date", widget: "datetime" }
+      - { label: "نام شاعر", name: "author", widget: "string", required: false }
+      - { label: "تصویر", name: "image", widget: "image", required: false }
+      - { label: "فایل صوتی", name: "audio", widget: "file", required: false }
+      - { label: "فایل ویدیو", name: "video", widget: "file", required: false }
+      - { label: "متن شعر", name: "body", widget: "text" }
+
+  - name: "stories"
+    label: "داستان‌ها"
+    folder: "src/content/stories"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "عنوان", name: "title", widget: "string" }
+      - { label: "خلاصه", name: "desc", widget: "string" }
+      - { label: "تاریخ", name: "date", widget: "datetime" }
+      - { label: "تصویر", name: "img", widget: "image", required: false }
+      - { label: "فایل صوتی", name: "audio", widget: "file", required: false }
+      - { label: "لینک ویدیو (آپارات یا یوتیوب)", name: "videoUrl", widget: "string", required: false }
+      - { label: "متن داستان", name: "body", widget: "markdown" }
+
+  - name: "notes"
+    label: "یادداشت‌ها"
+    folder: "src/content/notes"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "عنوان", name: "title", widget: "string" }
+      - { label: "تاریخ", name: "date", widget: "datetime" }
+      - label: "دسته‌بندی"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "خاطرات و روزنوشت", value: "خاطرات و روزنوشت" }
+          - { label: "خلوت روح", value: "خلوت روح" }
+          - { label: "دیده‌ها و شنیده‌ها", value: "دیده‌ها و شنیده‌ها" }
+        default: "خاطرات و روزنوشت"
+      - { label: "تصویر", name: "img", widget: "image", required: false }
+      - { label: "متن یادداشت", name: "body", widget: "markdown" }
+
+  - name: "hero"
+    label: "تصاویر هیرو"
+    folder: "src/content/hero"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "عنوان", name: "title", widget: "string" }
+      - { label: "تصویر", name: "image", widget: "image" }
+      - { label: "ترتیب نمایش", name: "order", widget: "number", default: 1, value_type: "int" }
+      - { label: "فعال", name: "active", widget: "boolean", default: true }
+      - { label: "شعر / متن کنار عکس", name: "quote", widget: "text", required: false }

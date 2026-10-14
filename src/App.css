@@ -1,0 +1,626 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 32px;
+  background: linear-gradient(180deg, #fcfbf7 0%, #f6f5f0 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id], footer[id] {
+  scroll-margin-top: 90px;
+}
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: clamp(250px, 25.3vw, 320px) clamp(300px, 31.5vw, 400px) clamp(250px, 25.3vw, 320px);
+  column-gap: 28px;
+  row-gap: 28px;
+  margin: 36px 0 40px;
+  padding: 0 20px;
+  align-items: stretch;
+}
+
+.main-content-grid > section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.main-content-grid > section > * {
+  width: 100%;
+  height: 100%;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 6px 8px;
+  border-top: 1px solid #dcdbd3;
+  font-size: 13px;
+  color: #666;
+  gap: 12px;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.footer-socials a {
+  text-decoration: none;
+  color: #666;
+  transition: color 180ms ease;
+}
+
+.footer-socials a:hover {
+  color: #1a1a1a;
+}
+
+@media (max-width: 960px) {
+  .main-content-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-container {
+    padding: 12px 12px 20px;
+    border-radius: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .main-content-grid {
+    margin: 20px 0 28px;
+    row-gap: 18px;
+    column-gap: 16px;
+  }
+
+  .page {
+    padding: 16px 4px 28px;
+  }
+
+  .back-link {
+    font-size: 1.1rem;
+  }
+
+  .story-container {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .app-container {
+    padding: 8px 8px 18px;
+  }
+
+  .main-content-grid {
+    margin: 14px 0 22px;
+    row-gap: 14px;
+  }
+
+  .page {
+    padding: 12px 2px 24px;
+  }
+
+  .page-title {
+    font-size: 1.35rem;
+  }
+
+  .media-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .media-thumb {
+    height: 160px;
+  }
+
+  .story-container {
+    padding: 14px 10px;
+  }
+
+  .story-content-text p {
+    font-size: 1.05rem;
+    text-indent: 24px;
+  }
+
+  .site-footer {
+    padding: 18px 4px 6px;
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+/* ============================================================
+   Sub-pages: image + text side by side
+   ============================================================ */
+.page {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 24px 8px 40px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #8b7d6b;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.page-lead {
+  color: #777;
+  margin: 0 0 24px;
+}
+
+/* Horizontal cards (image on one side, text on the other) */
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.media-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f6f0f2;
+  border: 1px solid #e6dfd3;
+  border-radius: 16px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+a.media-card {
+  cursor: pointer;
+}
+
+a.media-card:hover {
+  background-color: #f3e4d3;
+  transform: translateY(-3px);
+  box-shadow:
+    0 20px 30px -14px rgba(59, 42, 30, 0.35),
+    inset 0 -20px 24px -18px rgba(59, 42, 30, 0.30);
+}
+
+.media-thumb {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.media-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: right;
+}
+
+.media-title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.media-desc {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.7;
+  /* راست‌چین و تراز (justified) کردن متن در کارت‌ها و صفحات داستان */
+  text-align: justify;
+  text-align-last: right;
+}
+
+.media-meta {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* Detail page: image and text side by side */
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 28px;
+  align-items: stretch;
+  background: #f6f5f0;
+  border: 1px solid #e6dfd3;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.detail-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.detail-body {
+  text-align: right;
+  min-width: 0;
+}
+
+.detail-text {
+  margin: 14px 0 0;
+  line-height: 2;
+  color: #4a4a4a;
+  font-size: 0.98rem;
+  /* متن کامل داستان: راست‌چین و تراز (justified) */
+  text-align: justify;
+  text-align-last: right;
+}
+
+/* Poem page: image and text side by side */
+.poem-card-h {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 24px;
+  background: #f6f5f0;
+  border: 1px solid #e6dfd3;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.poem-card-h img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poem-text-h {
+  padding: 28px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.poem-text-h h2 {
+  margin: 0 0 14px;
+  font-size: 1.4rem;
+}
+
+.poem-text-h p {
+  margin: 6px 0;
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #4a4a4a;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 700px) {
+  .media-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .media-thumb {
+    width: 100%;
+    height: 200px;
+  }
+
+  .detail-grid,
+  .poem-card-h {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================
+   استایل‌های اختصاصی صفحه خواندن داستان
+========================================= */
+.story-cover-wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.story-cover-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.story-content-text {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  color: #2f2a24;
+}
+
+/* استایل دادن به پاراگراف‌های داخل داستان */
+/* استایل دادن به پاراگراف‌های داخل داستان */
+.story-content-text p {
+  font-size: 1.15rem;
+  line-height: 2.2;
+  margin-bottom: 24px;
+  text-align: justify; 
+  text-align-last: right;
+  /* 🔴 این دستور تورفتگی خط اول پاراگراف را ایجاد می‌کند */
+  text-indent: 40px; 
+}
+
+/* حرف اول داستان کمی بزرگ‌تر و جذاب‌تر می‌شود (اختیاری اما بسیار زیبا) */
+.story-content-text p:first-child::first-letter {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5a5148;
+  margin-left: 4px;
+}
+.story-container {
+  background: #f6f5f0;
+  border: 1px solid #e6dfd3;
+  border-radius: 18px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column; /* این دستور باعث می‌شود عکس و متن زیر هم قرار بگیرند */
+}
+/* =========================================
+   استایل‌های مربوط به مترجم متن (بولد، تیتر، لیست)
+========================================= */
+
+/* استایل کلمات پررنگ (Bold) */
+.story-content-text strong {
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+/* استایل کلمات مورب (Italic) */
+.story-content-text em {
+  font-style: italic;
+  color: #5a5148;
+}
+
+/* استایل تیترهای داخل متن داستان */
+.story-content-text h2, 
+.story-content-text h3 {
+  color: #2c3e50;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  text-indent: 0; /* تیترها نباید تورفتگی داشته باشند */
+}
+
+/* استایل لیست‌های نقطه‌ای و عددی */
+.story-content-text ul, 
+.story-content-text ol {
+  margin-bottom: 24px;
+  padding-right: 40px; /* راست‌چین کردن لیست‌ها */
+  line-height: 2;
+  font-size: 1.1rem;
+}
+
+.story-content-text li {
+  margin-bottom: 8px;
+}
+/* =========================================
+   استایل‌های پخش‌کننده ویدیو
+========================================= */
+.story-video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* نسبت استاندارد 16:9 برای ویدیو */
+  margin: 30px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+/* =========================================
+   پالت رنگی گرم و صمیمی (قهوه‌ای / تراکوتا / کرم)
+   این بخش را در انتهای فایل App.css اضافه کنید
+========================================= */
+
+.app-container {
+  background: linear-gradient(180deg, #c69d4c 0%, #eddec0 100%);
+}
+
+/* عنوان‌ها: قهوه‌ای تیره و گرم به‌جای مشکی خالص */
+.page-title,
+.media-title,
+.poem-text-h h2 {
+  color: #3b2a1e;
+}
+
+/* متن‌های اصلی: قهوه‌ای-خاکستری گرم به‌جای خاکستری سرد */
+.page-lead,
+.media-desc,
+.detail-text,
+.poem-text-h p {
+  color: #6b5947;
+  font-family: "Vazirmatn", sans-serif;
+}
+
+/* متن‌های فرعی (تاریخ و...): بژ تیره به‌جای خاکستری روشن */
+.media-meta,
+.footer-copyright {
+  color: #796aa5;
+}
+
+/* کارت‌ها: زمینه‌ی کرم گرم‌تر با حاشیه‌ی تراکوتای ملایم */
+.media-card,
+.story-container,
+.detail-grid,
+.poem-card-h {
+  background: #e9fbe7;
+  border-color: #4510d6;
+}
+
+/* لینک بازگشت و لینک‌های اصلی: تراکوتا */
+.back-link {
+  color: #a8623a;
+}
+
+.back-link:hover {
+  color: Z#7d4526;
+}
+
+/* حرف اول داستان و برخی جزئیات تزئینی */
+.story-content-text p:first-child::first-letter {
+  color: #22aa39;
+}
+
+.story-content-text strong {
+  color: #3b1e20;
+}
+
+/* دکمه‌ها (ارسال نظر، ثبت اثر و...): تراکوتای گرم به‌جای قهوه‌ای تیره‌ی خنثی */
+.submitButton,
+button[type="submit"] {
+  background: #a8623a !important;
+}
+
+.footer-socials a:hover {
+  color: #a8623a;
+}
+/* =========================================
+   پالت رنگی گرم و صمیمی (قهوه‌ای / تراکوتا / کرم)
+   این بخش را در انتهای فایل App.css اضافه کنید
+========================================= */
+
+.app-container {
+  background: linear-gradient(180deg, #f3d497 0%, #f3ebdd 100%);
+}
+
+/* عنوان‌ها: قهوه‌ای تیره و گرم به‌جای مشکی خالص */
+.page-title,
+.media-title,
+.poem-text-h h2 {
+  color: #3b2a1e;
+}
+
+/* متن‌های اصلی: قهوه‌ای-خاکستری گرم به‌جای خاکستری سرد */
+.page-lead,
+.media-desc,
+.detail-text,
+.poem-text-h p {
+  color: #6b5947;
+}
+
+/* متن‌های فرعی (تاریخ و...): بژ تیره به‌جای خاکستری روشن */
+.media-meta,
+.footer-copyright {
+  color: #a5876a;
+}
+
+/* کارت‌ها: زمینه‌ی کرم گرم‌تر با حاشیه‌ی تراکوتای ملایم */
+.media-card,
+.story-container,
+.detail-grid,
+.poem-card-h {
+  background: #fbf3e7;
+  border-color: #e6d3b8;
+}
+
+/* لینک بازگشت و لینک‌های اصلی: تراکوتا */
+.back-link {
+  color: #a8623a;
+}
+
+.back-link:hover {
+  color: #7d4526;
+}
+
+/* حرف اول داستان و برخی جزئیات تزئینی */
+.story-content-text p:first-child::first-letter {
+  color: #a8623a;
+}
+
+.story-content-text strong {
+  color: #3b2a1e;
+}
+
+/* دکمه‌ها (ارسال نظر، ثبت اثر و...): تراکوتای گرم به‌جای قهوه‌ای تیره‌ی خنثی */
+.submitButton,
+button[type="submit"] {
+  background: #a8623a !important;
+}
+
+.footer-socials a:hover {
+  color: #a8623a;
+}
+/* =========================================
+   تیره‌تر کردن رنگ متن‌های اصلی برای خوانایی بهتر
+   (این بخش را در انتهای فایل App.css اضافه کنید،
+   بعد از بخش «پالت رنگی گرم و صمیمی»)
+========================================= */
+
+.page-lead,
+.media-desc,
+.detail-text,
+.poem-text-h p,
+.story-content-text p {
+  color: #3f2f22;
+}
+/* =========================================
+   افکت سایه‌ی پایین کارت هنگام هاور
+   (این بخش را در انتهای فایل App.css اضافه کنید)
+========================================= */
+
+.media-card {
+  position: relative;
+}
+
+a.media-card:hover {
+  box-shadow:
+    0 20px 30px -14px rgba(59, 42, 30, 0.35),
+    inset 0 -20px 24px -18px rgba(59, 42, 30, 0.30);
+}
+
+
+
+/* ===== هاور کارت‌های شعر در صفحه‌ی «همه شعرها» — ریشه‌ی کارت div است (فقط استایل؛ افزوده‌شده) ===== */
+div.media-card:hover {
+  background-color: #f3e4d3;
+  transform: translateY(-3px);
+  box-shadow:
+    0 20px 30px -14px rgba(59, 42, 30, 0.35),
+    inset 0 -20px 24px -18px rgba(59, 42, 30, 0.30);
+}
+
+
+
+

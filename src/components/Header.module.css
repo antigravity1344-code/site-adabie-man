@@ -1,0 +1,138 @@
+.siteHeader {
+  position: sticky;
+  top: 15px; /* ایجاد یک فاصله ملایم از سقف برای شناور شدن زیباتر هدر */
+  margin: 0 24px;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(246, 245, 240, 0.82); /* شفافیت اولیه شیشه‌ای */
+  padding: 12px 24px;
+  border: 1px solid #f6f4ef;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: background-color 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+/* ۱. هاور کلی روی تمام ردیف هدر */
+.siteHeader:hover {
+  background: rgba(246, 245, 240, 0.98);
+  border-color: #d1d0ce;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); /* عمق گرفتن سایه */
+}
+
+.headerBrand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #915812;
+  letter-spacing: 0.02em;
+}
+
+.brandLink {
+  display: inline-block; /* الزامی برای اعمال افکت حرکتی */
+  text-decoration: none;
+  color: inherit;
+  transition: transform 250ms ease, color 250ms ease;
+}
+
+/* حرکت ملایم نام برند به بالا هنگام هاور */
+.brandLink:hover {
+  transform: translateY(-2px);
+  color: #8d0ce2;
+}
+
+.headerNav {
+  display: flex;
+  gap: 8px;
+}
+
+.headerNav a {
+  position: relative;
+  display: inline-block; /* بسیار مهم: برای اینکه ترنسفرم حرکتی روی تگ a کار کند */
+  padding: 6px 14px;
+  text-decoration: none;
+  color: #095e39; /* رنگ خاکستری-قهوه‌ای ملایم در حالت عادی */
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 250ms ease, transform 250ms ease;
+}
+
+/* ۲. هاور انفرادی کلمات: تغییر رنگ به تیره و حرکت ملایم به سمت بالا */
+.headerNav a:hover {
+  color: #aa1010;
+  transform: translateY(-3px); /* جابجایی سه‌پیکسلی به سمت بالا */
+}
+
+/* افکت خط باریک متحرک در زیر متن برای گزینه فعال */
+.headerNav a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 18px;
+  height: 2.5px;
+  background-color: #2a0af9;
+  border-radius: 99px;
+  transition: transform 220ms ease;
+}
+
+.headerNav a.active {
+  color: #121212;
+  font-weight: 700;
+}
+
+.headerNav a.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@media (max-width: 640px) {
+  .siteHeader {
+    margin: 8px 8px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 12px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .headerBrand {
+    font-size: 1.1rem;
+  }
+
+  .headerNav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2px 4px;
+  }
+
+  .headerNav a {
+    padding: 6px 8px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .siteHeader {
+    margin: 6px 4px 0;
+    padding: 10px 8px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  .headerBrand {
+    font-size: 1rem;
+  }
+
+  .headerNav {
+    gap: 2px;
+  }
+
+  .headerNav a {
+    padding: 5px 6px;
+    font-size: 0.78rem;
+  }
+}

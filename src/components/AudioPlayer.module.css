@@ -1,0 +1,62 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 10px 16px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.playButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 180ms ease, transform 180ms ease;
+  touch-action: manipulation;
+}
+
+.playButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.playButton:active {
+  transform: scale(0.97);
+}
+
+.progressBar {
+  flex: 1;
+  min-width: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #fff;
+  border-radius: 999px;
+  transition: width 0.3s linear;
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    gap: 10px;
+    padding: 8px 12px;
+  }
+}

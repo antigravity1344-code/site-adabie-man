@@ -1,0 +1,284 @@
+.dailyNotesColumn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  direction: rtl;
+  text-align: right;
+}
+
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+
+.columnTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.columnSubtitle {
+  font-size: 12px;
+  color: #888;
+}
+
+.notesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.cardItem {
+  background-color: #e7eadf;
+  border: 5px solid #f3faf5;
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 220ms ease, transform 220ms ease, background-color 220ms ease;
+   box-shadow: 0 10px 25px rgba(59, 42, 30, 0.24);
+  height: 180px;
+}
+
+.cardItem:hover {
+  background-color: #f3e4d3;
+  transform: translateY(-3px);
+  box-shadow:
+    0 20px 30px -14px rgba(59, 42, 30, 0.42),
+    inset 0 -20px 24px -18px rgba(59, 42, 30, 0.34);
+}
+
+.cardTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.tag {
+  background-color: #d7d3e5;
+  color: #fefefe;
+  text-shadow: 1px 1px 3px #1a1a1a;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.readTime {
+  font-size: 11px;
+  color: #888;
+}
+
+.cardMainLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.cardTitle {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #be19d0;
+  line-height: 1.4;
+}
+
+.cardExcerpt {
+  margin: 0 0 10px 0;
+  font-size: 12.5px;
+  color: #6c11e2;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid #b9a6ea;
+  font-size: 11.5px;
+}
+
+.noteDate {
+  color: #777;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.commentBtn {
+  text-decoration: none;
+  color: #6a6458;
+  font-size: 11.5px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 2px 7px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.commentBtn:hover {
+  background-color: #bbf8af;
+  color: #1a1a1a;
+}
+
+.readMoreBtn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #984d4d;
+  font-weight: 600;
+}
+
+.arrowIcon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.cardItem:hover .arrowIcon {
+  transform: translateX(-3px);
+}
+
+.bottomCtaWrapper {
+  margin-top: 16px;
+}
+
+.viewAllBtn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #f1e4e6;
+  color: #222;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+  box-shadow: 1px 1px 20px #b3ac9b;
+}
+
+.viewAllBtn:hover {
+  background-color: #d4f0d9;
+  box-shadow: 1px 2px 10px rgb(100, 94, 94);
+}
+/* استایل‌های مربوط به باز شدن کادر نظر */
+.commentBtn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.commentBoxArea {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #d6d1ea;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.commentTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid #dcd8cc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #333;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.commentTextarea:focus {
+  outline: none;
+  border-color: #b3ac9b;
+}
+
+.submitCommentBtn {
+  align-self: flex-end;
+  background-color: #2b2b2b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 11.5px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.submitCommentBtn:hover {
+  background-color: #1a1a1a;
+}
+
+@media (max-width: 640px) {
+  .dailyNotesColumn {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .cardItem {
+    height: auto;
+    min-height: 0;
+    padding: 12px;
+    border-width: 3px;
+  }
+
+  .cardTitle {
+    font-size: 14px;
+  }
+
+  .viewAllBtn {
+    padding: 9px;
+  }
+}
+
+@media (max-width: 430px) {
+  .dailyNotesColumn {
+    padding: 12px;
+  }
+
+  .cardItem {
+    padding: 10px;
+  }
+
+  .headerWrapper {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .columnTitle {
+    font-size: 16px;
+  }
+}

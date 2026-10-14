@@ -1,0 +1,73 @@
+.page {
+  min-height: 70vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.backLink {
+  color: #8b7d6b;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  background: #f7f3eb;
+  border: 1px solid #e6dfd3;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+  color: #4d453c;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid #d8d0c2;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font: inherit;
+  background: white;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: 2px solid #c9b69a;
+  border-color: #c9b69a;
+}
+
+.submitButton {
+  border: none;
+  border-radius: 999px;
+  background: #8b7d6b;
+  color: white;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.successMessage {
+  margin-top: 16px;
+  background: #e8f6eb;
+  color: #2f6b3a;
+  padding: 12px 14px;
+  border-radius: 10px;
+}

@@ -1,0 +1,26 @@
+/* Persian font collection installed through npm packages. */
+
+@import "@fontsource/vazirmatn/400.css";
+@import "shabnam-font/dist/font-face.css";
+
+/* Aliases used by the font test page. */
+.Vazirmatn,
+.font-vazirmatn {
+  font-family: "Vazirmatn", sans-serif;
+}
+
+.Shabnam,
+.font-shabnam {
+  font-family: "Shabnam", sans-serif;
+}
+
+/* These names are reserved for future local font files. */
+.Shekasteh,
+.font-shekasteh {
+  font-family: serif;
+}
+
+.Dastkhat,
+.font-dastkhat {
+  font-family: cursive;
+}
