@@ -1,9 +1,14 @@
 -- این کد رو داخل پنل Supabase اجرا کن:
 -- از منوی سمت چپ برو به بخش SQL Editor، یک New query بساز،
 -- این متن رو کامل پیست کن، و دکمه‌ی Run رو بزن.
+--
+-- این فایل منبع واحد و هماهنگ با کد پروژه است (نام جدول‌ها و ستون‌ها
+-- دقیقاً همان چیزی است که src/components/Comments.jsx،
+-- src/pages/ContactPage.jsx و src/pages/SubmitWork.jsx استفاده می‌کنند).
+-- جزئیات بیشتر و سیاست‌های دقیق‌تر: docs/supabase-rls.md
 
--- ===== جدول کامنت‌ها =====
-create table comments (
+-- ===== جدول کامنت‌ها (Comments.jsx) =====
+create table if not exists comments (
   id uuid primary key default gen_random_uuid(),
   content_type text not null,
   content_id text not null,
@@ -14,28 +19,68 @@ create table comments (
 
 alter table comments enable row level security;
 
+drop policy if exists "هرکسی می‌تواند نظرات را بخواند" on comments;
 create policy "هرکسی می‌تواند نظرات را بخواند"
   on comments for select
   using (true);
 
+drop policy if exists "هرکسی می‌تواند نظر ثبت کند" on comments;
 create policy "هرکسی می‌تواند نظر ثبت کند"
   on comments for insert
-  with check (true);
+  with check (
+    char_length(trim(author_name)) between 1 and 80
+    and char_length(trim(body)) between 1 and 2000
+  );
 
--- ===== جدول پیام‌های تماس =====
-create table messages (
-  id uuid primary key default gen_random_uuid(),
-  name text,
-  message text not null,
+-- ===== جدول پیام‌های تماس (ContactPage.jsx) =====
+create table if not exists contact_messages (
+  id bigint generated always as identity primary key,
+  author_name text,
+  body text not null,
   created_at timestamptz not null default now()
 );
 
-alter table messages enable row level security;
+alter table contact_messages enable row level security;
 
-create policy "فقط ادمین می‌تواند پیام‌ها را بخواند"
-  on messages for select
-  using (false);
+drop policy if exists "contact_insert_anon" on contact_messages;
+create policy "contact_insert_anon"
+  on contact_messages for insert
+  to anon, authenticated
+  with check (
+    char_length(trim(body)) between 1 and 4000
+    and (author_name is null or char_length(trim(author_name)) <= 80)
+  );
+-- عمداً هیچ سیاست select برای anon ساخته نشده: پیام‌ها فقط از
+-- Supabase Dashboard → Table Editor → contact_messages قابل مشاهده‌اند.
 
-create policy "هرکسی می‌تواند پیام ارسال کند"
-  on messages for insert
-  with check (true);
+-- ===== جدول آثار ارسالی (SubmitWork.jsx) =====
+create table if not exists submissions (
+  id uuid primary key default gen_random_uuid(),
+  content_type text not null,
+  title text not null,
+  body text not null,
+  author_name text not null,
+  author_email text,
+  image_url text,
+  created_at timestamptz not null default now()
+);
+
+alter table submissions enable row level security;
+
+drop policy if exists "هرکسی می‌تواند اثر ارسال کند" on submissions;
+create policy "هرکسی می‌تواند اثر ارسال کند"
+  on submissions for insert
+  with check (
+    char_length(trim(title)) between 1 and 200
+    and char_length(trim(body)) between 1 and 20000
+    and char_length(trim(author_name)) between 1 and 80
+  );
+-- عمداً هیچ سیاست select ساخته نشده: آثار ارسالی فقط از
+-- Supabase Dashboard → Table Editor → submissions قابل بررسی‌اند.
+
+-- ===== Storage bucket برای عکس آثار ارسالی =====
+-- این بخش را به‌جای SQL، از Supabase Dashboard انجام بده:
+-- 1. Storage → New bucket → نام: submission-images → Public: خیر (private)
+-- 2. محدودیت حجم فایل را در تنظیمات bucket مثلاً روی 5MB بگذار
+-- 3. Policies → یک policy برای INSERT با to anon/authenticated و
+--    (اختیاری) محدودیت نوع فایل (image/*) اضافه کن

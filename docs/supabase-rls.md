@@ -38,27 +38,9 @@ Storage: prefer authenticated uploads, or a bucket with MIME/size limits and no 
 
 ## contact_messages (فرم تماس)
 
-Create in Supabase SQL editor if missing (or run `docs/contact_messages.sql`):
-
-```sql
-create table if not exists contact_messages (
-  id bigint generated always as identity primary key,
-  author_name text,
-  body text not null,
-  created_at timestamptz not null default now()
-);
-
-alter table contact_messages enable row level security;
-
-create policy "contact_insert_anon"
-  on contact_messages for insert
-  to anon, authenticated
-  with check (
-    char_length(trim(body)) between 1 and 4000
-    and (author_name is null or char_length(trim(author_name)) <= 80)
-  );
-
--- Read only via service role / dashboard (no public select policy)
-```
+تمام جدول‌ها (comments، contact_messages، submissions) و سیاست‌های RLS
+یک‌جا و هماهنگ با کد پروژه در فایل `supabase-setup.sql` (ریشه‌ی پروژه)
+قرار دارند — همان را در Supabase SQL Editor اجرا کن.
 
 View messages: Supabase → Table Editor → `contact_messages`.
+View submissions: Supabase → Table Editor → `submissions`.

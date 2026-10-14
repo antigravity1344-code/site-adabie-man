@@ -25,3 +25,7 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# Local AI-assistant tooling metadata (not part of the site)
+.claude/
+CLAUDE.md

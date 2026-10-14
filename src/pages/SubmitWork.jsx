@@ -13,6 +13,8 @@ function SubmitWork() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
+  const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+
   function handleImageChange(event) {
     const file = event.target.files && event.target.files[0];
     if (!file) {
@@ -21,6 +23,11 @@ function SubmitWork() {
     }
     if (!file.type.startsWith('image/')) {
       setError('فایل انتخاب‌شده باید عکس باشد');
+      setImageFile(null);
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setError('حجم عکس باید کمتر از ۵ مگابایت باشد');
       setImageFile(null);
       return;
     }

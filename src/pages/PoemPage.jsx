@@ -54,8 +54,8 @@ function PoemPage() {
         </div>
         <div className="poem-text-h">
           <h2>{poem.title}</h2>
-          {lines.map((line) => (
-            <p key={line}>{line}</p>
+          {lines.map((line, index) => (
+            <p key={index}>{line}</p>
           ))}
           <span className="media-meta">{formatDate(poem.date)}</span>
         </div>
