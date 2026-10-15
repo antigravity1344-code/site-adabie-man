@@ -24,7 +24,19 @@ function StoryPage() {
       ) : (
         <article className="story-container">
           
-          {story.img && (
+          {story.motion ? (
+            <div className="story-cover-wrapper">
+              <video
+                key={story.motion}
+                src={story.motion}
+                className="story-cover-image"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            </div>
+          ) : story.img && (
             <div className="story-cover-wrapper">
               <img src={story.img} alt={story.title} className="story-cover-image" />
             </div>

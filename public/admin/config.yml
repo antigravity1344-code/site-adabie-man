@@ -36,6 +36,7 @@ collections:
       - { label: "خلاصه", name: "desc", widget: "string" }
       - { label: "تاریخ", name: "date", widget: "datetime" }
       - { label: "تصویر", name: "img", widget: "image", required: false }
+      - { label: "تصویر متحرک (کوتاه و بی‌صدا، به‌جای تصویر ثابت در صفحه‌ی داستان)", name: "motion", widget: "file", required: false }
       - { label: "فایل صوتی", name: "audio", widget: "file", required: false }
       - { label: "لینک ویدیو (آپارات یا یوتیوب)", name: "videoUrl", widget: "string", required: false }
       - { label: "متن داستان", name: "body", widget: "markdown" }
