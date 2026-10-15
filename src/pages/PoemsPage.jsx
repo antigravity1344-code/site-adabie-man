@@ -43,7 +43,7 @@ function PoemCard({ poem, commentCount }) {
   }
 
   return (
-    <div className="media-card">
+    <div className="media-card poem-media-card">
       {/* تصویر با دکمه‌ی پخش روش */}
       <div
         style={{ position: 'relative', flexShrink: 0, cursor: (hasAudio || hasVideo) ? 'pointer' : 'default' }}

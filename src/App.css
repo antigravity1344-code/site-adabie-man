@@ -254,6 +254,59 @@ a.media-card:hover {
   color: #999;
 }
 
+/* =========================================
+   تمایز بصری کارت‌ها بر اساس نوع محتوا
+   (پایه‌ی همه media-card است؛ فقط چند جزئیات کوچک فرق می‌کند)
+========================================= */
+
+/* شعر: حس نقل‌قول و شاعرانه — متن مایل + علامت گیومه‌ی تزئینی کنار عنوان */
+.poem-media-card .media-title {
+  position: relative;
+  padding-right: 18px;
+  font-family: Georgia, 'Vazirmatn', serif;
+}
+
+.poem-media-card .media-title::before {
+  content: '\201D';
+  position: absolute;
+  right: -4px;
+  top: -14px;
+  font-size: 2.1rem;
+  line-height: 1;
+  color: #d8b98c;
+  font-family: Georgia, serif;
+}
+
+.poem-media-card .media-desc {
+  font-style: italic;
+}
+
+/* یادداشت: حس روزنوشت/شخصی — کارت جمع‌وجورتر + برچسب دسته‌بندی */
+.note-media-card {
+  padding: 12px;
+}
+
+.note-media-card .media-thumb {
+  width: 96px;
+  height: 96px;
+}
+
+.note-media-card .media-title {
+  font-size: 0.98rem;
+}
+
+.note-tag {
+  display: inline-block;
+  align-self: flex-start;
+  background-color: #f1dcaf;
+  color: #3b2a1e;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
 /* Detail page: image and text side by side */
 .detail-grid {
   display: grid;

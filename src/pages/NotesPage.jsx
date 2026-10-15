@@ -20,13 +20,14 @@ function NotesPage() {
 
       <div className="card-stack">
         {notesData.map((note) => (
-          <Link key={note.id} to={`/note/${note.id}`} className="media-card">
+          <Link key={note.id} to={`/note/${note.id}`} className="media-card note-media-card">
             <img
               src={note.img || 'https://picsum.photos/300/300'}
               alt={note.title}
               className="media-thumb"
             />
             <div className="media-body">
+              {note.category ? <span className="note-tag">{note.category}</span> : null}
               <h3 className="media-title">{note.title}</h3>
               <p className="media-desc">{excerptOf(note.content)}</p>
               <span className="media-meta">
