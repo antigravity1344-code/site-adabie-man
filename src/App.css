@@ -2,7 +2,12 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px 24px 32px;
-  background: linear-gradient(180deg, #fcfbf7 0%, #f6f5f0 100%);
+  /* رنگ پایه‌ی کرمِ گرم برای کل سایت؛ گرادیان طلایی فقط در بخش بالای صفحه نمایش داده می‌شود
+     (background-size محدود) تا صفحات کوتاه و بلند یک رنگ زمینه‌ی یکسان داشته باشند */
+  background-color: #f3ebdd;
+  background-image: linear-gradient(180deg, #f3d497 0%, #f3ebdd 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 480px;
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
 }
@@ -451,79 +456,7 @@ a.media-card:hover {
 }
 /* =========================================
    پالت رنگی گرم و صمیمی (قهوه‌ای / تراکوتا / کرم)
-   این بخش را در انتهای فایل App.css اضافه کنید
 ========================================= */
-
-.app-container {
-  background: linear-gradient(180deg, #c69d4c 0%, #eddec0 100%);
-}
-
-/* عنوان‌ها: قهوه‌ای تیره و گرم به‌جای مشکی خالص */
-.page-title,
-.media-title,
-.poem-text-h h2 {
-  color: #3b2a1e;
-}
-
-/* متن‌های اصلی: قهوه‌ای-خاکستری گرم به‌جای خاکستری سرد */
-.page-lead,
-.media-desc,
-.detail-text,
-.poem-text-h p {
-  color: #6b5947;
-  font-family: "Vazirmatn", sans-serif;
-}
-
-/* متن‌های فرعی (تاریخ و...): بژ تیره به‌جای خاکستری روشن */
-.media-meta,
-.footer-copyright {
-  color: #796aa5;
-}
-
-/* کارت‌ها: زمینه‌ی کرم گرم‌تر با حاشیه‌ی تراکوتای ملایم */
-.media-card,
-.story-container,
-.detail-grid,
-.poem-card-h {
-  background: #e9fbe7;
-  border-color: #4510d6;
-}
-
-/* لینک بازگشت و لینک‌های اصلی: تراکوتا */
-.back-link {
-  color: #a8623a;
-}
-
-.back-link:hover {
-  color: Z#7d4526;
-}
-
-/* حرف اول داستان و برخی جزئیات تزئینی */
-.story-content-text p:first-child::first-letter {
-  color: #22aa39;
-}
-
-.story-content-text strong {
-  color: #3b1e20;
-}
-
-/* دکمه‌ها (ارسال نظر، ثبت اثر و...): تراکوتای گرم به‌جای قهوه‌ای تیره‌ی خنثی */
-.submitButton,
-button[type="submit"] {
-  background: #a8623a !important;
-}
-
-.footer-socials a:hover {
-  color: #a8623a;
-}
-/* =========================================
-   پالت رنگی گرم و صمیمی (قهوه‌ای / تراکوتا / کرم)
-   این بخش را در انتهای فایل App.css اضافه کنید
-========================================= */
-
-.app-container {
-  background: linear-gradient(180deg, #f3d497 0%, #f3ebdd 100%);
-}
 
 /* عنوان‌ها: قهوه‌ای تیره و گرم به‌جای مشکی خالص */
 .page-title,

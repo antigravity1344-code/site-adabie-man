@@ -2,7 +2,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: #f4f4f3;
+  background: #fbf3e7;
+  border: 1px solid #e6d3b8;
   padding: 20px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
@@ -11,12 +12,13 @@
 }
 
 .columnTitle {
-  border-bottom: 2px solid #2222e4;
+  border-bottom: 2px solid #a8623a;
   padding-bottom: 10px;
   margin-top: 0;
   margin-bottom: 18px;
   font-size: 1rem;
   font-weight: 800;
+  color: #3b2a1e;
 }
 
 .storiesList {
@@ -28,7 +30,7 @@
 
 .storyCard {
   display: flex;
-  background-color: #e7eadf;
+  background-color: #f6f0e3;
   box-sizing: border-box;
   padding: 14px;
   border-radius: 12px;
@@ -59,7 +61,7 @@
 .storyTitle {
   margin: 0;
   font-size: 1rem;
-  color: #1d069e;
+  color: #3b2a1e;
   text-decoration: none;
   font-weight: 700;
   display: -webkit-box;
@@ -71,7 +73,7 @@
 .storyDesc {
   margin: 5px 0;
   font-size: 0.85rem;
-  color: #0b037b;
+  color: #6b5947;
   line-height: 1.6;
   text-align: justify;
   text-align-last: right;
@@ -83,7 +85,7 @@
 
 .storyDate {
   font-size: 0.75rem;
-  color: #8e2222;
+  color: #a5876a;
 }
 
 .imageWrapper {
@@ -95,7 +97,7 @@
   height: 90px;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 2px 4px 10px rgba(71, 2, 2, 0.08);
+  box-shadow: 2px 4px 10px rgba(59, 42, 30, 0.12);
   border: 2px solid #f9f6f6;
   transition: transform 0.3s ease;
 }
@@ -110,8 +112,7 @@
   margin-top: 20px;
   padding: 10px;
   background-color: #f1dcaf;
-  color: #2525e8;
-  text-shadow: #bb9dde 1px 5px 3px;
+  color: #3b2a1e;
   border-radius: 12px;
   text-decoration: none;
   font-size: 0.9rem;
@@ -122,8 +123,8 @@
 }
 
 .viewAllButton:hover {
-  background-color: #c4d9c4;
-  color: #e8edea;
+  background-color: #a8623a;
+  color: #fff;
   transform: translateY(-2px);
 }
 

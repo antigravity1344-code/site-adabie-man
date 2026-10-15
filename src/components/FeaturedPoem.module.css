@@ -4,21 +4,21 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background: #fff;
+  background: #fbf3e7;
   padding: 20px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-  border: 4px solid rgb(241, 225, 110);
+  border: 1px solid #e6d3b8;
 }
 
 .columnTitle {
-  border-bottom: 2px solid #1a1a1a;
+  border-bottom: 2px solid #a8623a;
   padding-bottom: 10px;
   margin-top: 0;
   margin-bottom: 18px;
   font-size: 1rem;
   font-weight: 700;
- 
+  color: #3b2a1e;
 }
 
 .poemLink {
@@ -108,7 +108,7 @@
 }
 
 .allPoemsLink:hover {
-  color: #666;
+  color: #a8623a;
 }
 
 /* ===== هاور کارت شعر تصویری (فقط استایل؛ افزوده‌شده) ===== */
@@ -123,7 +123,6 @@
   .featuredPoemColumn {
     padding: 14px;
     border-radius: 14px;
-    border-width: 3px;
   }
 
   .poemCard {

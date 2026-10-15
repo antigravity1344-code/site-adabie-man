@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-// دقت کنید که آدرس فایل CSS ممکن است بسته به پوشه‌بندی شما نیاز به تنظیم داشته باشد
-// اگر این فایل در پوشه pages است، باید یک مرحله به عقب برگردید: '../components/Stories.module.css'
-import styles from '../components/Stories.module.css'; 
+import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
 
 function excerptOf(text, maxLength = 90) {
@@ -15,47 +13,35 @@ function AllStories() {
   const allStoriesData = getContent('stories');
 
   return (
-    <div className={styles.storiesColumn} style={{ marginTop: '40px' }}>
-      <h2 className={styles.columnTitle}>آرشیو تمام داستان‌ها</h2>
+    <div className="page">
+      <Link to="/" className="back-link">← بازگشت به صفحه اصلی</Link>
 
-      <div className={styles.storiesList}>
+      <h1 className="page-title">آرشیو داستان‌ها</h1>
+      <p className="page-lead">مجموعه‌ی کامل داستان‌های محمد قنبری.</p>
+
+      <div className="card-stack">
+        {allStoriesData.length === 0 && <p className="page-lead">هنوز داستانی ثبت نشده است.</p>}
         {allStoriesData.map((story) => (
-          <div className={`${styles.storyCard} archive-story-row`} key={story.id}>
-            
-            {story.img && (
-              <div className={styles.imageWrapper}>
-                <img src={story.img} alt={story.title} className={styles.storyImage} />
-              </div>
-            )}
-
-            <div className={styles.storyDetails}>
-              <Link to={`/story/${story.id}`} className={styles.storyTitle}>
-                {story.title}
-              </Link>
-              <p className={styles.storyDesc}>{excerptOf(story.desc)}</p>
-              <Link
-                to={`/story/${story.id}`}
-                style={{
-                  display: 'inline-block',
-                  marginTop: '4px',
-                  fontWeight: 600,
-                  color: '#a8623a',
-                  textDecoration: 'none',
-                }}
-              >
-                ادامه مطلب و ارسال نظر ←
-              </Link>
+          <Link key={story.id} to={`/story/${story.id}`} className="media-card">
+            <img
+              src={story.img || 'https://picsum.photos/300/300'}
+              alt={story.title}
+              className="media-thumb"
+            />
+            <div className="media-body">
+              <h3 className="media-title">{story.title}</h3>
+              <p className="media-desc">{excerptOf(story.desc)}</p>
+              <span className="media-meta">
+                {formatDate(story.date)}
+                {' · '}
+                <span style={{ fontSize: '0.95rem', fontWeight: 600, color: '#8a6d3b' }}>
+                  ادامه مطلب و ارسال نظر ←
+                </span>
+              </span>
             </div>
-            
-          </div>
+          </Link>
         ))}
       </div>
-      
-      {/* دکمه بازگشت به صفحه اصلی */}
-      <Link to="/" className={styles.viewAllButton}>
-        بازگشت به صفحه اصلی
-      </Link>
-      
     </div>
   );
 }
