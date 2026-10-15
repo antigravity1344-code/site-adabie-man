@@ -166,7 +166,7 @@
 }
 
 .bottomCtaWrapper {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .viewAllBtn {
@@ -177,11 +177,12 @@
   background-color: #f1dcaf;
   color: #3b2a1e;
   text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   padding: 10px;
-  border-radius: 10px;
-  transition: background-color 0.2s ease;
+  border-radius: 12px;
+  border: 1px solid #f5f8f6;
+  transition: all 0.3s ease;
   box-shadow: 0 8px 20px rgba(59, 42, 30, 0.18);
 }
 
