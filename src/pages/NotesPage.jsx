@@ -16,16 +16,18 @@ function NotesPage() {
       <Link to="/" className="back-link">← بازگشت به صفحه اصلی</Link>
 
       <h1 className="page-title">همه یادداشت‌ها</h1>
-      <p className="page-lead">تصویر و متن هر یادداشت کنار هم نمایش داده می‌شود.</p>
+      <p className="page-lead">خاطرات و تأملات کوتاه.</p>
 
       <div className="card-stack">
         {notesData.map((note) => (
           <Link key={note.id} to={`/note/${note.id}`} className="media-card note-media-card">
-            <img
-              src={note.img || 'https://picsum.photos/300/300'}
-              alt={note.title}
-              className="media-thumb"
-            />
+            {note.img ? (
+              <img
+                src={note.img}
+                alt={note.title}
+                className="media-thumb"
+              />
+            ) : null}
             <div className="media-body">
               {note.category ? <span className="note-tag">{note.category}</span> : null}
               <h3 className="media-title">{note.title}</h3>
