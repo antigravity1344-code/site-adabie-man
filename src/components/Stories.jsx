@@ -38,11 +38,13 @@ function Stories() {
             }}
           >
             
-            {story.img && (
-              <div className={styles.imageWrapper}>
-                <img src={story.img} alt={story.title} className={styles.storyImage} />
-              </div>
-            )}
+            <div className={styles.imageWrapper}>
+              <img
+                src={story.img || 'https://picsum.photos/300/300'}
+                alt={story.title}
+                className={styles.storyImage}
+              />
+            </div>
 
             <div className={styles.storyDetails}>
               <Link
