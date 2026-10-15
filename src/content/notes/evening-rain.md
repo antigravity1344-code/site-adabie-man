@@ -1,6 +1,6 @@
 ---
 title: بارانِ عصر
-date: 1403/07/21
+date: 2024-10-12
 category: دیده‌ها و شنیده‌ها
 img: https://picsum.photos/300/300?random=21
 ---

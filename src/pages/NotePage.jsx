@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
 import CopyDownload from '../components/CopyDownload.jsx';
+import ReactMarkdown from 'react-markdown';
 import Comments from '../components/Comments.jsx';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
 
@@ -86,19 +87,18 @@ function NotePage() {
               >
                 {note.title}
               </h1>
-              <p
+              <div
                 style={{
                   margin: 0,
                   fontSize: '1.55rem',
                   lineHeight: 2,
                   color: '#ffffff',
-                  whiteSpace: 'pre-line',
                   textAlign: 'justify',
                   textAlignLast: 'right',
                 }}
               >
-                {note.content}
-              </p>
+                <ReactMarkdown>{String(note.content || '')}</ReactMarkdown>
+              </div>
               <span
                 style={{
                   display: 'inline-block',
@@ -130,7 +130,9 @@ function NotePage() {
           <div className="detail-body">
             <h1 className="page-title">{note.title}</h1>
             <span className="media-meta">{formatDate(note.date)}</span>
-            <p className="detail-text">{note.content}</p>
+            <div className="detail-text">
+              <ReactMarkdown>{String(note.content || '')}</ReactMarkdown>
+            </div>
             <CopyDownload title={note.title} text={`${note.title}\n\n${note.content}`} />
             {COMMENTS_ENABLED ? <Comments contentType="note" contentId={note.id} /> : null}
           </div>

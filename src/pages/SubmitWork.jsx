@@ -14,6 +14,10 @@ function SubmitWork() {
   const [done, setDone] = useState(false);
 
   const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+  // این محدودیت‌ها باید دقیقاً با محدودیت‌های Row Level Security در supabase-setup.sql هم‌خوان باشند
+  const MAX_TITLE_LENGTH = 200;
+  const MAX_AUTHOR_NAME_LENGTH = 80;
+  const MAX_BODY_LENGTH = 20000;
 
   function handleImageChange(event) {
     const file = event.target.files && event.target.files[0];
@@ -41,6 +45,21 @@ function SubmitWork() {
 
     if (!name.trim() || !title.trim() || !body.trim()) {
       setError('لطفاً نام، عنوان و متن اثر را وارد کنید');
+      return;
+    }
+
+    if (name.trim().length > MAX_AUTHOR_NAME_LENGTH) {
+      setError(`نام شما باید کمتر از ${MAX_AUTHOR_NAME_LENGTH} حرف باشد`);
+      return;
+    }
+
+    if (title.trim().length > MAX_TITLE_LENGTH) {
+      setError(`عنوان اثر باید کمتر از ${MAX_TITLE_LENGTH} حرف باشد`);
+      return;
+    }
+
+    if (body.trim().length > MAX_BODY_LENGTH) {
+      setError(`متن اثر باید کمتر از ${MAX_BODY_LENGTH} حرف باشد`);
       return;
     }
 
