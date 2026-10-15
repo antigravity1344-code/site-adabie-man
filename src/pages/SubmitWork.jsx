@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 
@@ -9,6 +9,7 @@ function SubmitWork() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -18,6 +19,17 @@ function SubmitWork() {
   const MAX_TITLE_LENGTH = 200;
   const MAX_AUTHOR_NAME_LENGTH = 80;
   const MAX_BODY_LENGTH = 20000;
+
+  // ساخت/آزادسازی پیش‌نمایش عکس انتخاب‌شده
+  useEffect(() => {
+    if (!imageFile) {
+      setImagePreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(imageFile);
+    setImagePreviewUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [imageFile]);
 
   function handleImageChange(event) {
     const file = event.target.files && event.target.files[0];
@@ -37,6 +49,10 @@ function SubmitWork() {
     }
     setError('');
     setImageFile(file);
+  }
+
+  function removeImage() {
+    setImageFile(null);
   }
 
   async function handleSubmit(event) {
@@ -114,9 +130,16 @@ function SubmitWork() {
       <div className="page">
         <Link to="/" className="back-link">← بازگشت به صفحه اصلی</Link>
         <h1 className="page-title">اثر شما ارسال شد</h1>
-        <p className="detail-text">
-          با تشکر از ارسال اثرتان. به‌زودی آن را بررسی خواهیم کرد.
-        </p>
+
+        <div className="submit-success">
+          <span className="submit-success-icon">✓</span>
+          <p className="detail-text" style={{ margin: 0 }}>
+            با تشکر از ارسال اثرتان. پیش از انتشار، آن را بررسی خواهیم کرد و در صورت تأیید، روی سایت منتشر می‌شود.
+          </p>
+          <Link to="/" className="submit-button" style={{ textDecoration: 'none', display: 'inline-block' }}>
+            بازگشت به صفحه اصلی
+          </Link>
+        </div>
       </div>
     );
   }
@@ -129,135 +152,110 @@ function SubmitWork() {
         اثر خود را برای بررسی و انتشار احتمالی در سایت ارسال کنید.
       </p>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-          maxWidth: '560px',
-          marginTop: '20px',
-        }}
-      >
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.95rem' }}>
-            <input
-              type="radio"
-              name="contentType"
-              value="poem"
-              checked={contentType === 'poem'}
-              onChange={() => setContentType('poem')}
-            />
-            شعر
-          </label>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.95rem' }}>
-            <input
-              type="radio"
-              name="contentType"
-              value="story"
-              checked={contentType === 'story'}
-              onChange={() => setContentType('story')}
-            />
-            داستان
-          </label>
+      <form onSubmit={handleSubmit} className="submit-form">
+        <div className="submit-field">
+          <span className="submit-label">نوع اثر</span>
+          <div className="submit-type-group">
+            <label className={`submit-type-option ${contentType === 'poem' ? 'is-active' : ''}`}>
+              <input
+                type="radio"
+                name="contentType"
+                value="poem"
+                checked={contentType === 'poem'}
+                onChange={() => setContentType('poem')}
+              />
+              شعر
+            </label>
+            <label className={`submit-type-option ${contentType === 'story' ? 'is-active' : ''}`}>
+              <input
+                type="radio"
+                name="contentType"
+                value="story"
+                checked={contentType === 'story'}
+                onChange={() => setContentType('story')}
+              />
+              داستان
+            </label>
+          </div>
         </div>
 
-        <input
-          type="text"
-          placeholder="نام شما"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{
-            padding: '10px 14px',
-            border: '1px solid #d8d0c2',
-            borderRadius: '10px',
-            fontFamily: 'inherit',
-            fontSize: '0.95rem',
-          }}
-        />
-
-        <input
-          type="email"
-          placeholder="ایمیل شما (اختیاری، برای پاسخ)"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            padding: '10px 14px',
-            border: '1px solid #d8d0c2',
-            borderRadius: '10px',
-            fontFamily: 'inherit',
-            fontSize: '0.95rem',
-          }}
-        />
-
-        <input
-          type="text"
-          placeholder="عنوان اثر"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={{
-            padding: '10px 14px',
-            border: '1px solid #d8d0c2',
-            borderRadius: '10px',
-            fontFamily: 'inherit',
-            fontSize: '0.95rem',
-          }}
-        />
-
-        <textarea
-          placeholder="متن کامل شعر یا داستان..."
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          rows={10}
-          style={{
-            padding: '10px 14px',
-            border: '1px solid #d8d0c2',
-            borderRadius: '10px',
-            fontFamily: 'inherit',
-            fontSize: '0.95rem',
-            resize: 'vertical',
-          }}
-        />
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <label style={{ fontSize: '0.9rem', color: '#555' }}>
-            عکس (اختیاری)
-          </label>
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-name">نام شما</label>
           <input
+            id="submit-name"
+            type="text"
+            placeholder="مثلاً: محمد قنبری"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="submit-input"
+          />
+        </div>
+
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-email">ایمیل (اختیاری، برای پاسخ)</label>
+          <input
+            id="submit-email"
+            type="email"
+            placeholder="example@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="submit-input"
+          />
+        </div>
+
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-title">عنوان اثر</label>
+          <input
+            id="submit-title"
+            type="text"
+            placeholder="عنوان شعر یا داستان"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="submit-input"
+          />
+          <span className={`submit-char-count ${title.length > MAX_TITLE_LENGTH * 0.9 ? 'is-near-limit' : ''}`}>
+            {title.length} / {MAX_TITLE_LENGTH}
+          </span>
+        </div>
+
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-body">متن کامل اثر</label>
+          <textarea
+            id="submit-body"
+            placeholder="متن کامل شعر یا داستان..."
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            rows={10}
+            className="submit-textarea"
+          />
+          <span className={`submit-char-count ${body.length > MAX_BODY_LENGTH * 0.9 ? 'is-near-limit' : ''}`}>
+            {body.length} / {MAX_BODY_LENGTH}
+          </span>
+        </div>
+
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-image">عکس (اختیاری)</label>
+          <input
+            id="submit-image"
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            style={{
-              fontFamily: 'inherit',
-              fontSize: '0.9rem',
-            }}
+            className="submit-file-input"
           />
           {imageFile ? (
-            <span style={{ fontSize: '0.8rem', color: '#8a6d3b' }}>
-              انتخاب شد: {imageFile.name}
-            </span>
+            <div className="submit-image-preview">
+              <img src={imagePreviewUrl} alt="پیش‌نمایش" />
+              <span style={{ fontSize: '0.8rem', color: '#8a6d3b' }}>{imageFile.name}</span>
+              <button type="button" className="submit-image-remove" onClick={removeImage}>
+                حذف
+              </button>
+            </div>
           ) : null}
         </div>
 
-        {error ? <span style={{ color: '#b3261e', fontSize: '0.85rem' }}>{error}</span> : null}
+        {error ? <span className="submit-error">{error}</span> : null}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          style={{
-            alignSelf: 'flex-start',
-            padding: '10px 26px',
-            fontFamily: 'inherit',
-            fontSize: '0.95rem',
-            fontWeight: 600,
-            color: '#fff',
-            background: '#2f2a24',
-            border: 'none',
-            borderRadius: '999px',
-            cursor: 'pointer',
-            opacity: submitting ? 0.6 : 1,
-          }}
-        >
+        <button type="submit" disabled={submitting} className="submit-button">
           {submitting ? 'در حال ارسال...' : 'ارسال اثر'}
         </button>
       </form>

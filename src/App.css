@@ -607,6 +607,188 @@ div.media-card:hover {
     inset 0 -20px 24px -18px rgba(59, 42, 30, 0.30);
 }
 
+/* =========================================
+   فرم «ارسال اثر»
+========================================= */
+
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 620px;
+  margin-top: 24px;
+  background-color: #fbf3e7;
+  border: 1px solid #e6d3b8;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(59, 42, 30, 0.06);
+}
+
+.submit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.submit-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b5947;
+}
+
+.submit-type-group {
+  display: flex;
+  gap: 10px;
+}
+
+.submit-type-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1px solid #e6d3b8;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #6b5947;
+  cursor: pointer;
+  background-color: #f6f0e3;
+  transition: all 0.2s ease;
+}
+
+.submit-type-option input {
+  accent-color: #a8623a;
+}
+
+.submit-type-option.is-active {
+  background-color: #f1dcaf;
+  border-color: #a8623a;
+  color: #3b2a1e;
+  font-weight: 600;
+}
+
+.submit-input,
+.submit-textarea {
+  padding: 11px 14px;
+  border: 1px solid #e6d3b8;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #3b2a1e;
+  background-color: #fffdfa;
+  transition: border-color 0.2s ease;
+}
+
+.submit-input:focus,
+.submit-textarea:focus {
+  outline: none;
+  border-color: #a8623a;
+}
+
+.submit-textarea {
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.submit-char-count {
+  font-size: 0.75rem;
+  color: #a5876a;
+  align-self: flex-end;
+}
+
+.submit-char-count.is-near-limit {
+  color: #a8623a;
+  font-weight: 600;
+}
+
+.submit-file-input {
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #6b5947;
+}
+
+.submit-image-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.submit-image-preview img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #e6d3b8;
+}
+
+.submit-image-remove {
+  background: none;
+  border: none;
+  color: #a8623a;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.submit-error {
+  color: #b3261e;
+  font-size: 0.85rem;
+  background-color: rgba(179, 38, 30, 0.08);
+  border: 1px solid rgba(179, 38, 30, 0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.submit-button {
+  align-self: flex-start;
+  padding: 11px 32px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #a8623a;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(59, 42, 30, 0.18);
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #8a4f2e;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.submit-success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 480px;
+  margin-top: 20px;
+  background-color: #fbf3e7;
+  border: 1px solid #e6d3b8;
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+.submit-success-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .submit-form,
+  .submit-success {
+    padding: 16px;
+  }
+}
+
 
 
 
