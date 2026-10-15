@@ -5,6 +5,7 @@ const navItems = [
   { to: '/poems', label: 'شعرها' },
   { to: '/stories', label: 'داستان‌ها' },
   { to: '/notes', label: 'یادداشت‌ها' },
+  { to: '/readings', label: 'آرشیو خوانندگان' },
   { to: '/submit', label: 'ارسال اثر' },
   { to: '/contact', label: 'گفتگو' },
 ];

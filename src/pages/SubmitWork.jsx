@@ -10,11 +10,13 @@ function SubmitWork() {
   const [email, setEmail] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [audioFile, setAudioFile] = useState(null);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
   const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+  const MAX_AUDIO_BYTES = 15 * 1024 * 1024; // 15MB
   // این محدودیت‌ها باید دقیقاً با محدودیت‌های Row Level Security در supabase-setup.sql هم‌خوان باشند
   const MAX_TITLE_LENGTH = 200;
   const MAX_AUTHOR_NAME_LENGTH = 80;
@@ -53,6 +55,30 @@ function SubmitWork() {
 
   function removeImage() {
     setImageFile(null);
+  }
+
+  function handleAudioChange(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) {
+      setAudioFile(null);
+      return;
+    }
+    if (!file.type.startsWith('audio/')) {
+      setError('فایل انتخاب‌شده باید صوتی باشد');
+      setAudioFile(null);
+      return;
+    }
+    if (file.size > MAX_AUDIO_BYTES) {
+      setError('حجم فایل صوتی باید کمتر از ۱۵ مگابایت باشد');
+      setAudioFile(null);
+      return;
+    }
+    setError('');
+    setAudioFile(file);
+  }
+
+  function removeAudio() {
+    setAudioFile(null);
   }
 
   async function handleSubmit(event) {
@@ -104,6 +130,29 @@ function SubmitWork() {
       imageUrl = publicUrlData?.publicUrl || null;
     }
 
+    let audioUrl = null;
+
+    if (audioFile) {
+      const fileExt = audioFile.name.split('.').pop();
+      const filePath = `${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`;
+
+      const { error: audioUploadError } = await supabase.storage
+        .from('submission-audio')
+        .upload(filePath, audioFile);
+
+      if (audioUploadError) {
+        setSubmitting(false);
+        setError('آپلود فایل صوتی با خطا مواجه شد. لطفاً دوباره تلاش کنید.');
+        return;
+      }
+
+      const { data: audioPublicUrlData } = supabase.storage
+        .from('submission-audio')
+        .getPublicUrl(filePath);
+
+      audioUrl = audioPublicUrlData?.publicUrl || null;
+    }
+
     const { error: insertError } = await supabase
       .from('submissions')
       .insert({
@@ -113,6 +162,7 @@ function SubmitWork() {
         author_name: name.trim(),
         author_email: email.trim() || null,
         image_url: imageUrl,
+        audio_url: audioUrl,
       });
 
     setSubmitting(false);
@@ -247,6 +297,25 @@ function SubmitWork() {
               <img src={imagePreviewUrl} alt="پیش‌نمایش" />
               <span style={{ fontSize: '0.8rem', color: '#8a6d3b' }}>{imageFile.name}</span>
               <button type="button" className="submit-image-remove" onClick={removeImage}>
+                حذف
+              </button>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="submit-field">
+          <label className="submit-label" htmlFor="submit-audio">خوانش صوتی (اختیاری)</label>
+          <input
+            id="submit-audio"
+            type="file"
+            accept="audio/*"
+            onChange={handleAudioChange}
+            className="submit-file-input"
+          />
+          {audioFile ? (
+            <div className="submit-image-preview">
+              <span style={{ fontSize: '0.8rem', color: '#8a6d3b' }}>🎙 {audioFile.name}</span>
+              <button type="button" className="submit-image-remove" onClick={removeAudio}>
                 حذف
               </button>
             </div>

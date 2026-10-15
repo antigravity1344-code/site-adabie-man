@@ -62,8 +62,12 @@ create table if not exists submissions (
   author_name text not null,
   author_email text,
   image_url text,
+  audio_url text,
   created_at timestamptz not null default now()
 );
+
+-- اگر این جدول را قبلاً ساخته‌اید، فقط همین خط را اجرا کنید تا ستون جدید اضافه شود:
+alter table submissions add column if not exists audio_url text;
 
 alter table submissions enable row level security;
 
@@ -84,3 +88,10 @@ create policy "هرکسی می‌تواند اثر ارسال کند"
 -- 2. محدودیت حجم فایل را در تنظیمات bucket مثلاً روی 5MB بگذار
 -- 3. Policies → یک policy برای INSERT با to anon/authenticated و
 --    (اختیاری) محدودیت نوع فایل (image/*) اضافه کن
+
+-- ===== Storage bucket برای فایل صوتی خوانش‌های ارسالی =====
+-- همین کار را برای فایل‌های صوتی هم تکرار کن:
+-- 1. Storage → New bucket → نام: submission-audio → Public: خیر (private)
+-- 2. محدودیت حجم فایل را در تنظیمات bucket مثلاً روی 15MB بگذار
+-- 3. Policies → یک policy برای INSERT با to anon/authenticated و
+--    (اختیاری) محدودیت نوع فایل (audio/*) اضافه کن

@@ -295,6 +295,12 @@ a.media-card:hover {
   font-size: 0.98rem;
 }
 
+.reading-icon {
+  display: inline-block;
+  margin-left: 6px;
+  color: #a8623a;
+}
+
 .note-tag {
   display: inline-block;
   align-self: flex-start;

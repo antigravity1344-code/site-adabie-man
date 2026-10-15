@@ -10,6 +10,8 @@ import ContactPage from './pages/ContactPage.jsx';
 import PoemPage from './pages/PoemPage.jsx';
 import PoemsPage from './pages/PoemsPage.jsx';
 import SubmitWork from './pages/SubmitWork.jsx';
+import ReadingsPage from './pages/ReadingsPage.jsx';
+import ReadingPage from './pages/ReadingPage.jsx';
 import './App.css';
 import './styles/fonts.css';
 import AllStories from './pages/AllStories';
@@ -47,6 +49,8 @@ function App() {
         <Route path="/note/:id" element={<NotePage />} />
         <Route path="/poems" element={<PoemsPage />} />
         <Route path="/poem/:id" element={<PoemPage />} />
+        <Route path="/readings" element={<ReadingsPage />} />
+        <Route path="/reading/:id" element={<ReadingPage />} />
         <Route path="/submit" element={<SubmitWork />} />
       </Routes>
 

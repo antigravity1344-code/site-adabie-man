@@ -62,6 +62,22 @@ collections:
       - { label: "تصویر", name: "img", widget: "image", required: false }
       - { label: "متن یادداشت", name: "body", widget: "markdown" }
 
+  - name: "readings"
+    label: "آرشیو خوانندگان"
+    folder: "src/content/readings"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "عنوان خوانش", name: "title", widget: "string" }
+      - { label: "نام خواننده", name: "reader", widget: "string", default: "محمد قنبری", required: false }
+      - { label: "تاریخ", name: "date", widget: "datetime" }
+      - { label: "فایل صوتی", name: "audio", widget: "file" }
+      - { label: "تصویر", name: "image", widget: "image", required: false }
+      - { label: "اشاره به اثر مرتبط (اختیاری)", name: "relatedWork", widget: "string", required: false }
+      - { label: "توضیح کوتاه", name: "description", widget: "text", required: false }
+
   - name: "hero"
     label: "تصاویر هیرو"
     folder: "src/content/hero"
