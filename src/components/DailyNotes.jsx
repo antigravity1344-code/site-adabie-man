@@ -151,18 +151,7 @@ function DailyNotes() {
                     بستن نظرات ✕
                   </button>
 
-                  <Comments
-                    contentType="note"
-                    contentId={note.id}
-                    onSubmitSuccess={() => {
-                      const key = String(note.id);
-                      setCommentCounts((prev) => ({
-                        ...prev,
-                        [key]: (prev[key] || 0) + 1,
-                      }));
-                      setOpenCommentId(null);
-                    }}
-                  />
+                  <Comments contentType="note" contentId={note.id} />
 
                   {/* دکمه‌ی بستن در انتهای لیست — برای وقتی کاربر تا آخر نظرات اسکرول کرده */}
                   <button

@@ -14,8 +14,11 @@ create table if not exists public.comments (
   content_id text not null,
   author_name text not null,
   body text not null,
+  approved boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+alter table public.comments add column if not exists approved boolean not null default false;
 
 -- poem / story / note همان مقدارهایی است که صفحات شعر، داستان و یادداشت می‌فرستند.
 alter table public.comments drop constraint if exists comments_fields_check;
@@ -36,16 +39,18 @@ drop policy if exists "هرکسی می‌تواند نظر ثبت کند" on pub
 drop policy if exists comments_select_anon on public.comments;
 drop policy if exists comments_insert_anon on public.comments;
 
+-- anon فقط نظر تأییدشده را می‌بیند. تأیید از Table Editor با ستون approved است.
 create policy comments_select_anon
   on public.comments for select
   to anon
-  using (true);
+  using (approved = true);
 
 create policy comments_insert_anon
   on public.comments for insert
   to anon
   with check (
-    content_type in ('poem', 'story', 'note')
+    approved = false
+    and content_type in ('poem', 'story', 'note')
     and char_length(trim(content_id)) between 1 and 200
     and char_length(trim(author_name)) between 1 and 100
     and char_length(trim(body)) between 1 and 2000

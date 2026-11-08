@@ -5,17 +5,17 @@ import styles from './Comments.module.css';
 
 /**
  * بخش کامنت‌گذاری برای یک مطلب خاص.
- * @param {{ contentType: string, contentId: string, onSubmitSuccess?: () => void }} props
+ * @param {{ contentType: string, contentId: string }} props
  *   contentType: نوع محتوا، مثلاً 'story' یا 'poem' یا 'note'
  *   contentId: شناسه‌ی همون مطلب خاص
- *   onSubmitSuccess: (اختیاری) بعد از ثبت موفق نظر صدا زده می‌شود — مثلاً برای بستن باکس
  */
-function Comments({ contentType, contentId, onSubmitSuccess }) {
+function Comments({ contentType, contentId }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [body, setBody] = useState('');
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const MAX_NAME = 80;
   const MAX_BODY = 2000;
@@ -26,6 +26,7 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
     async function loadComments() {
       setLoading(true);
       setError('');
+      setNotice('');
       const { data, error: fetchError } = await supabase
         .from('comments')
         .select('*')
@@ -53,6 +54,7 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
   async function handleSubmit(event) {
     event.preventDefault();
     setError('');
+    setNotice('');
 
     const trimmedName = name.trim();
     const trimmedBody = body.trim();
@@ -67,16 +69,13 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
 
     setSubmitting(true);
 
-    const { data, error: insertError } = await supabase
-      .from('comments')
-      .insert({
-        content_type: contentType,
-        content_id: contentId,
-        author_name: trimmedName,
-        body: trimmedBody,
-      })
-      .select()
-      .single();
+    const { error: insertError } = await supabase.from('comments').insert({
+      content_type: contentType,
+      content_id: contentId,
+      author_name: trimmedName,
+      body: trimmedBody,
+      approved: false,
+    });
 
     setSubmitting(false);
 
@@ -85,13 +84,9 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
       return;
     }
 
-    setComments((prev) => [data, ...prev]);
     setName('');
     setBody('');
-
-    if (typeof onSubmitSuccess === 'function') {
-      onSubmitSuccess();
-    }
+    setNotice('نظر شما ثبت شد و پس از تأیید نمایش داده می‌شود.');
   }
 
   return (
@@ -112,6 +107,7 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         />
+        {notice ? <p className={styles.empty}>{notice}</p> : null}
         {error ? <span className={styles.error}>{error}</span> : null}
         <button type="submit" className={styles.submitButton} disabled={submitting}>
           {submitting ? 'در حال ارسال...' : 'ارسال نظر'}
