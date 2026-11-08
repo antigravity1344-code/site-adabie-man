@@ -108,6 +108,18 @@ function SubmitWork() {
     setSubmitting(true);
 
     let imageUrl = null;
+    let imagePath = null;
+    let audioUrl = null;
+    let audioPath = null;
+
+    async function removeUploaded() {
+      if (imagePath) {
+        await supabase.storage.from('submission-images').remove([imagePath]);
+      }
+      if (audioPath) {
+        await supabase.storage.from('submission-audio').remove([audioPath]);
+      }
+    }
 
     if (imageFile) {
       const fileExt = imageFile.name.split('.').pop();
@@ -123,14 +135,13 @@ function SubmitWork() {
         return;
       }
 
+      imagePath = filePath;
       const { data: publicUrlData } = supabase.storage
         .from('submission-images')
         .getPublicUrl(filePath);
 
       imageUrl = publicUrlData?.publicUrl || null;
     }
-
-    let audioUrl = null;
 
     if (audioFile) {
       const fileExt = audioFile.name.split('.').pop();
@@ -141,11 +152,13 @@ function SubmitWork() {
         .upload(filePath, audioFile);
 
       if (audioUploadError) {
+        await removeUploaded();
         setSubmitting(false);
         setError('آپلود فایل صوتی با خطا مواجه شد. لطفاً دوباره تلاش کنید.');
         return;
       }
 
+      audioPath = filePath;
       const { data: audioPublicUrlData } = supabase.storage
         .from('submission-audio')
         .getPublicUrl(filePath);
@@ -165,12 +178,14 @@ function SubmitWork() {
         audio_url: audioUrl,
       });
 
-    setSubmitting(false);
-
     if (insertError) {
+      await removeUploaded();
+      setSubmitting(false);
       setError('ارسال اثر با خطا مواجه شد. لطفاً دوباره تلاش کنید.');
       return;
     }
+
+    setSubmitting(false);
 
     setDone(true);
   }
