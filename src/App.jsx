@@ -19,8 +19,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const targetId =
-      location.hash ? location.hash.replace('#', '') : location.pathname === '/contact' ? 'contact' : '';
+    const targetId = location.hash ? location.hash.replace('#', '') : '';
 
     if (!targetId) {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
