@@ -1,20 +1,21 @@
 // مسیر فایل: src/App.jsx
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
-import Home from './pages/Home.jsx';
-import StoryPage from './pages/StoryPage.jsx';
-import NotesPage from './pages/NotesPage.jsx';
-import NotePage from './pages/NotePage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
-import PoemPage from './pages/PoemPage.jsx';
-import PoemsPage from './pages/PoemsPage.jsx';
-import SubmitWork from './pages/SubmitWork.jsx';
-import ReadingsPage from './pages/ReadingsPage.jsx';
-import ReadingPage from './pages/ReadingPage.jsx';
 import './App.css';
 import './styles/fonts.css';
-import AllStories from './pages/AllStories';
+
+const Home = lazy(() => import('./pages/Home.jsx'));
+const StoryPage = lazy(() => import('./pages/StoryPage.jsx'));
+const NotesPage = lazy(() => import('./pages/NotesPage.jsx'));
+const NotePage = lazy(() => import('./pages/NotePage.jsx'));
+const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
+const PoemPage = lazy(() => import('./pages/PoemPage.jsx'));
+const PoemsPage = lazy(() => import('./pages/PoemsPage.jsx'));
+const SubmitWork = lazy(() => import('./pages/SubmitWork.jsx'));
+const ReadingsPage = lazy(() => import('./pages/ReadingsPage.jsx'));
+const ReadingPage = lazy(() => import('./pages/ReadingPage.jsx'));
+const AllStories = lazy(() => import('./pages/AllStories.jsx'));
 function App() {
   const location = useLocation();
 
@@ -39,6 +40,7 @@ function App() {
     <div className="app-container">
       <Header />
 
+      <Suspense fallback={null}>
       <Routes>
         <Route path="/stories" element={<AllStories />} />
         <Route path="/" element={<Home />} />
@@ -62,6 +64,7 @@ function App() {
           }
         />
       </Routes>
+      </Suspense>
 
       <footer id="contact" className="site-footer">
         <div className="footer-copyright">© ۲۰۲۶ محمد قنبری. تمام حقوق محفوظ است.</div>
