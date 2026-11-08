@@ -57,7 +57,11 @@ function FeaturedPoem() {
     <div className={styles.featuredPoemColumn}>
       <h3 className={styles.columnTitle}>شعر تصویری</h3>
 
-      <div className={styles.poemCard}>
+      <div
+        className={styles.poemCard}
+        onClick={handleClick}
+        style={{ cursor: (hasAudio || hasVideo) ? 'pointer' : 'default' }}
+      >
         <div className={styles.poemCoverContainer}>
           <img
             src={poem.image || 'https://picsum.photos/300/200'}
@@ -67,20 +71,15 @@ function FeaturedPoem() {
 
           {/* آیکون پخش روی تصویر — دقیقاً مثل قبل */}
           {(hasAudio || hasVideo) ? (
-            <button
-              type="button"
-              className={styles.playOverlay}
-              onClick={handleClick}
-              aria-label={hasVideo ? 'پخش ویدیو' : playing ? 'توقف صوت' : 'پخش صوت'}
-            >
+            <div className={styles.playOverlay}>
               {/* آیکون توقف فقط موقع پخش صدا نشون داده می‌شه */}
               {playing && hasAudio && !hasVideo ? (
-                <svg viewBox="0 0 24 24" fill="white" width="48" height="48" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="white" width="48" height="48">
                   <rect x="6" y="4" width="4" height="16" rx="1" />
                   <rect x="14" y="4" width="4" height="16" rx="1" />
                 </svg>
               ) : (
-                <svg viewBox="0 0 24 24" fill="white" width="48" height="48" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="white" width="48" height="48">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               )}
@@ -95,7 +94,7 @@ function FeaturedPoem() {
                   borderRadius: '4px',
                 }}>ویدیو</span>
               )}
-            </button>
+            </div>
           ) : null}
         </div>
 

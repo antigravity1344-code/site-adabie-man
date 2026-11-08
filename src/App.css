@@ -535,7 +535,7 @@ a.media-card:hover {
 /* متن‌های فرعی (تاریخ و...): بژ تیره به‌جای خاکستری روشن */
 .media-meta,
 .footer-copyright {
-  color: #5c4030;
+  color: #a5876a;
 }
 
 /* کارت‌ها: زمینه‌ی کرم گرم‌تر با حاشیه‌ی تراکوتای ملایم */
@@ -697,7 +697,7 @@ div.media-card:hover {
 
 .submit-char-count {
   font-size: 0.75rem;
-  color: #5c4030;
+  color: #a5876a;
   align-self: flex-end;
 }
 

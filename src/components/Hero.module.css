@@ -25,7 +25,7 @@
 }
 
 .heroQuote:hover {
-  color: #4a3425;
+  color: #f09c63;
   transform: translateY(-2px);
   text-shadow: 0 5px 16px rgba(74, 52, 37, 0.18);
 }
@@ -58,40 +58,6 @@
   justify-content: center;
 }
 
-.heroSlideButton {
-  display: block;
-  margin-top: 24px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  border-radius: 20px;
-  cursor: pointer;
-  line-height: 0;
-}
-
-.heroSlideButton:focus-visible {
-  outline: 3px solid #4a3425;
-  outline-offset: 4px;
-}
-
-.heroPauseButton {
-  margin-top: 8px;
-  padding: 4px 12px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #4a3425;
-  background: transparent;
-  border: 1px solid #4a3425;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.heroPauseButton:focus-visible {
-  outline: 3px solid #4a3425;
-  outline-offset: 2px;
-}
-
 .heroProfileImg {
   width: 180px;
   height: 180px;
@@ -101,7 +67,7 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
-  margin-top: 0;
+  margin-top: 24px;
 }
 
 .heroProfileImg:hover {
@@ -113,7 +79,7 @@
 .imageHint {
   margin-top: 8px;
   font-size: 0.85rem;
-  color: #2a1810;
+  color: #5a5148;
   text-align: center;
   transition: all 0.3s ease;
   opacity: 0.7;
@@ -138,13 +104,10 @@
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
 
-  .heroSlideButton {
-    margin-top: 8px;
-  }
-
   .heroProfileImg {
     width: 140px;
     height: 140px;
+    margin-top: 8px;
   }
 }
 

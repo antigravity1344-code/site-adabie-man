@@ -25,9 +25,6 @@ const fallbackData = [
 
 function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [paused, setPaused] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
 
   // استخراج و ترکیب اطلاعات از CMS و پوشه Assets
   const heroData = useMemo(() => {
@@ -68,43 +65,26 @@ function Hero() {
     setCurrentIndex((prev) => (prev + 1) % heroData.length);
   };
 
-  // تعویض خودکار هر ۱ دقیقه؛ با توقف یا prefers-reduced-motion خاموش می‌ماند
+  // تعویض خودکار هر ۱ دقیقه
   useEffect(() => {
-    if (paused) return undefined;
-
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroData.length);
     }, 60000);
     return () => clearInterval(timer);
-  }, [heroData.length, paused]);
+  }, [heroData.length]);
 
   const currentSlide = heroData[currentIndex];
 
   return (
     <section className={styles.heroBanner}>
       <div className={styles.heroImageContainer}>
-        <button
-          type="button"
-          className={styles.heroSlideButton}
+        <img
+          key={`img-${currentIndex}`} /* تریگر کردن انیمیشن CSS با تغییر کلید */
+          src={currentSlide.image}
+          alt="محمد قنبری"
+          className={styles.heroProfileImg}
           onClick={changeImage}
-          aria-label="تصویر بعدی"
-        >
-          <img
-            key={`img-${currentIndex}`} /* تریگر کردن انیمیشن CSS با تغییر کلید */
-            src={currentSlide.image}
-            alt="محمد قنبری"
-            className={styles.heroProfileImg}
-          />
-        </button>
-        <button
-          type="button"
-          className={styles.heroPauseButton}
-          aria-pressed={paused}
-          aria-label={paused ? 'ادامه نمایش خودکار تصاویر' : 'توقف نمایش خودکار تصاویر'}
-          onClick={() => setPaused((value) => !value)}
-        >
-          {paused ? 'ادامه' : 'توقف'}
-        </button>
+        />
         <span className={styles.imageHint}>
           کلیک کنید؛ تصاویر دیگر را ببینید
         </span>

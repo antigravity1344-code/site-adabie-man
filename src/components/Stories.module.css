@@ -7,7 +7,7 @@
   padding: 20px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-  direction: rtl;
+  direction: ltr;
   text-align: right;
 }
 
@@ -35,7 +35,7 @@
   padding: 14px;
   border-radius: 12px;
   gap: 15px;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   box-shadow: 0 10px 25px rgba(59, 42, 30, 0.24);
   border: 5px solid #f3faf5;
@@ -85,7 +85,7 @@
 
 .storyDate {
   font-size: 0.75rem;
-  color: #5c4030;
+  color: #a5876a;
 }
 
 .imageWrapper {

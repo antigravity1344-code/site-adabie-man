@@ -102,7 +102,7 @@
 
 .commentDate {
   font-size: 0.75rem;
-  color: #5c4030;
+  color: #888;
   white-space: normal;
 }
 
@@ -116,7 +116,7 @@
 
 .empty {
   font-size: 0.9rem;
-  color: #5c4030;
+  color: #888;
 }
 
 @media (max-width: 480px) {

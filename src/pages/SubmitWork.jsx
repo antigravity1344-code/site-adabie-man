@@ -107,22 +107,7 @@ function SubmitWork() {
 
     setSubmitting(true);
 
-    // مسیر آبجکت داخل باکت خصوصی، نه URL عمومی. لینک امضاشده منقضی می‌شود و برای بررسی بعدی مناسب نیست.
-    let imagePath = null;
-    let audioPath = null;
-
-    async function removeUploaded() {
-      const removals = [];
-      if (imagePath) {
-        removals.push(supabase.storage.from('submission-images').remove([imagePath]));
-      }
-      if (audioPath) {
-        removals.push(supabase.storage.from('submission-audio').remove([audioPath]));
-      }
-      if (removals.length > 0) {
-        await Promise.all(removals);
-      }
-    }
+    let imageUrl = null;
 
     if (imageFile) {
       const fileExt = imageFile.name.split('.').pop();
@@ -138,8 +123,14 @@ function SubmitWork() {
         return;
       }
 
-      imagePath = filePath;
+      const { data: publicUrlData } = supabase.storage
+        .from('submission-images')
+        .getPublicUrl(filePath);
+
+      imageUrl = publicUrlData?.publicUrl || null;
     }
+
+    let audioUrl = null;
 
     if (audioFile) {
       const fileExt = audioFile.name.split('.').pop();
@@ -150,13 +141,16 @@ function SubmitWork() {
         .upload(filePath, audioFile);
 
       if (audioUploadError) {
-        await removeUploaded();
         setSubmitting(false);
         setError('آپلود فایل صوتی با خطا مواجه شد. لطفاً دوباره تلاش کنید.');
         return;
       }
 
-      audioPath = filePath;
+      const { data: audioPublicUrlData } = supabase.storage
+        .from('submission-audio')
+        .getPublicUrl(filePath);
+
+      audioUrl = audioPublicUrlData?.publicUrl || null;
     }
 
     const { error: insertError } = await supabase
@@ -167,18 +161,17 @@ function SubmitWork() {
         body: body.trim(),
         author_name: name.trim(),
         author_email: email.trim() || null,
-        image_url: imagePath,
-        audio_url: audioPath,
+        image_url: imageUrl,
+        audio_url: audioUrl,
       });
 
+    setSubmitting(false);
+
     if (insertError) {
-      await removeUploaded();
-      setSubmitting(false);
       setError('ارسال اثر با خطا مواجه شد. لطفاً دوباره تلاش کنید.');
       return;
     }
 
-    setSubmitting(false);
     setDone(true);
   }
 
