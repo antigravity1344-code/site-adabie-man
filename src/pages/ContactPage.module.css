@@ -8,7 +8,7 @@
 }
 
 .backLink {
-  color: #8b7d6b;
+  color: #5c4030;
   font-weight: 700;
   text-decoration: none;
   margin-bottom: 24px;
@@ -50,14 +50,14 @@
 
 .field input:focus,
 .field textarea:focus {
-  outline: 2px solid #c9b69a;
-  border-color: #c9b69a;
+  outline: 2px solid #6b5344;
+  border-color: #6b5344;
 }
 
 .submitButton {
   border: none;
   border-radius: 999px;
-  background: #8b7d6b;
+  background: #6b5344;
   color: white;
   padding: 12px 20px;
   font-weight: 700;

@@ -25,7 +25,7 @@
 }
 
 .heroQuote:hover {
-  color: #f09c63;
+  color: #4a3425;
   transform: translateY(-2px);
   text-shadow: 0 5px 16px rgba(74, 52, 37, 0.18);
 }
@@ -113,7 +113,7 @@
 .imageHint {
   margin-top: 8px;
   font-size: 0.85rem;
-  color: #5a5148;
+  color: #2a1810;
   text-align: center;
   transition: all 0.3s ease;
   opacity: 0.7;

@@ -72,7 +72,7 @@ function Stories() {
                   style={{
                     fontSize: '0.85rem',
                     fontWeight: 600,
-                    color: '#a8623a',
+                    color: '#6e3f24',
                     textDecoration: 'none',
                     whiteSpace: 'nowrap',
                   }}
