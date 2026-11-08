@@ -1,6 +1,6 @@
 // مسیر فایل: src/App.jsx
 import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Home from './pages/Home.jsx';
 import StoryPage from './pages/StoryPage.jsx';
@@ -51,6 +51,16 @@ function App() {
         <Route path="/readings" element={<ReadingsPage />} />
         <Route path="/reading/:id" element={<ReadingPage />} />
         <Route path="/submit" element={<SubmitWork />} />
+        <Route
+          path="*"
+          element={
+            <div className="page">
+              <Link to="/" className="back-link">← بازگشت به صفحه اصلی</Link>
+              <h1 className="page-title">صفحه یافت نشد</h1>
+              <p className="detail-text">این نشانی در سایت وجود ندارد.</p>
+            </div>
+          }
+        />
       </Routes>
 
       <footer id="contact" className="site-footer">
