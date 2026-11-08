@@ -3,9 +3,8 @@
 -- نام جدول‌ها و ستون‌ها با Comments.jsx، DailyNotes.jsx، PoemsPage.jsx،
 -- ContactPage.jsx و SubmitWork.jsx یکی است.
 --
--- سقف نرخ هر IP در انتهای فایل است (تریگر). بررسی نظر پیش از نمایش هنوز نیاز به تصمیم است.
--- نیاز به تصمیم: نظرها بلافاصله برای همه خوانده می‌شوند. اگر پیش از نمایش
--- باید بررسی شوند، سیاست select و یک ستون وضعیت در کد لازم است.
+-- سقف نرخ هر IP در انتهای فایل است و فقط روی insert اعمال می‌شود.
+-- تأیید نظر با جدول admins و صفحهٔ /moderate است، نه از منوی عمومی.
 
 -- ===== نظرات =====
 create table if not exists public.comments (
@@ -55,6 +54,57 @@ create policy comments_insert_anon
     and char_length(trim(author_name)) between 1 and 100
     and char_length(trim(body)) between 1 and 2000
   );
+
+-- مدیر: کاربر واردشده‌ای که ردیفش در admins است.
+-- anon عوض نمی‌شود. تأیید و حذف insert نیستند و سقف نرخ را رد نمی‌کنند.
+create table if not exists public.admins (
+  user_id uuid primary key references auth.users (id) on delete cascade
+);
+
+alter table public.admins enable row level security;
+revoke all on table public.admins from anon, authenticated;
+grant select on table public.admins to authenticated;
+
+drop policy if exists admins_select_self on public.admins;
+create policy admins_select_self
+  on public.admins for select
+  to authenticated
+  using (user_id = auth.uid());
+
+grant select, update, delete on table public.comments to authenticated;
+
+drop policy if exists comments_auth_select_approved on public.comments;
+create policy comments_auth_select_approved
+  on public.comments for select
+  to authenticated
+  using (approved = true);
+
+drop policy if exists comments_admin_select on public.comments;
+create policy comments_admin_select
+  on public.comments for select
+  to authenticated
+  using (exists (
+    select 1 from public.admins where user_id = auth.uid()
+  ));
+
+drop policy if exists comments_admin_update on public.comments;
+create policy comments_admin_update
+  on public.comments for update
+  to authenticated
+  using (exists (
+    select 1 from public.admins where user_id = auth.uid()
+  ))
+  with check (exists (
+    select 1 from public.admins where user_id = auth.uid()
+  ));
+
+drop policy if exists comments_admin_delete on public.comments;
+create policy comments_admin_delete
+  on public.comments for delete
+  to authenticated
+  using (exists (
+    select 1 from public.admins where user_id = auth.uid()
+  ));
 
 -- ===== پیام تماس =====
 create table if not exists public.contact_messages (
@@ -184,6 +234,7 @@ create policy submission_objects_insert_anon
 -- ===== سقف نرخ بر اساس IP =====
 -- نظر: ۵ تا در ۱۰ دقیقه. تماس: ۳ تا در ۱۰ دقیقه. اثر: ۳ تا در ۱ ساعت.
 -- اگر IP در هدر نباشد (مثلاً SQL Editor)، سقف اعمال نمی‌شود.
+-- تریگر فقط BEFORE INSERT است؛ تأیید و حذف مدیر از آن رد نمی‌شوند.
 create table if not exists public.rate_limit_events (
   ip text not null,
   table_name text not null,

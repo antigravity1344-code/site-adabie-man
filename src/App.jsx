@@ -16,6 +16,7 @@ const SubmitWork = lazy(() => import('./pages/SubmitWork.jsx'));
 const ReadingsPage = lazy(() => import('./pages/ReadingsPage.jsx'));
 const ReadingPage = lazy(() => import('./pages/ReadingPage.jsx'));
 const AllStories = lazy(() => import('./pages/AllStories.jsx'));
+const ModeratePage = lazy(() => import('./pages/ModeratePage.jsx'));
 function App() {
   const location = useLocation();
 
@@ -46,6 +47,7 @@ function App() {
       '/readings': 'آرشیو خوانندگان - محمد قنبری',
       '/submit': 'ارسال اثر - محمد قنبری',
       '/contact': 'گفتگو - محمد قنبری',
+      '/moderate': 'تأیید نظرها - محمد قنبری',
     };
     let title = titles[path];
     if (!title) {
@@ -75,6 +77,7 @@ function App() {
         <Route path="/readings" element={<ReadingsPage />} />
         <Route path="/reading/:id" element={<ReadingPage />} />
         <Route path="/submit" element={<SubmitWork />} />
+        <Route path="/moderate" element={<ModeratePage />} />
         <Route
           path="*"
           element={
