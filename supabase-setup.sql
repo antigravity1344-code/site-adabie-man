@@ -167,7 +167,7 @@ values
   )
 on conflict (id) do nothing;
 
-alter table storage.objects enable row level security;
+-- RLS روی storage.objects از قبل در Supabase روشن است؛ این نقش مالک جدول نیست.
 
 drop policy if exists submission_objects_insert_anon on storage.objects;
 
