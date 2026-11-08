@@ -5,6 +5,7 @@ import CopyDownload from '../components/CopyDownload.jsx';
 import Comments from '../components/Comments.jsx';
 import AudioPlayer from '../components/AudioPlayer.jsx';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
+import { netlifyImage } from '../utils/netlifyImage';
 
 function PoemPage() {
   const { id } = useParams();
@@ -38,12 +39,12 @@ function PoemPage() {
             <video
               src={poem.video}
               controls
-              poster={poem.image || undefined}
+              poster={poem.image ? netlifyImage(poem.image, 960) : undefined}
               style={{ width: '100%', display: 'block', borderRadius: '8px', background: '#000' }}
             />
           ) : (
             <>
-              <img src={poem.image || 'https://picsum.photos/500/500?random=13'} alt={poem.title} />
+              <img src={netlifyImage(poem.image, 960) || 'https://picsum.photos/500/500?random=13'} alt={poem.title} />
               {poem.audio ? (
                 <div style={{ position: 'absolute', bottom: '16px', left: '16px', right: '16px' }}>
                   <AudioPlayer src={poem.audio} />

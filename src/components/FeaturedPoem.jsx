@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import styles from './FeaturedPoem.module.css';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
 
 function FeaturedPoem() {
@@ -64,7 +65,7 @@ function FeaturedPoem() {
       >
         <div className={styles.poemCoverContainer}>
           <img
-            src={poem.image || 'https://picsum.photos/300/200'}
+            src={netlifyImage(poem.image, 800) || 'https://picsum.photos/300/200'}
             alt={poem.title}
             className={styles.poemCoverImg}
             width="400"

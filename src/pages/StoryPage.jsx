@@ -5,6 +5,7 @@ import CopyDownload from '../components/CopyDownload.jsx';
 import ReactMarkdown from 'react-markdown';
 import Comments from '../components/Comments.jsx';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
+import { netlifyImage } from '../utils/netlifyImage';
 
 function StoryPage() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ function StoryPage() {
             </div>
           ) : story.img && (
             <div className="story-cover-wrapper">
-              <img src={story.img} alt={story.title} className="story-cover-image" />
+              <img src={netlifyImage(story.img, 1200)} alt={story.title} className="story-cover-image" />
             </div>
           )}
 

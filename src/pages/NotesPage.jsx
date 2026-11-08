@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 
 function excerptOf(text, maxLength = 90) {
   const clean = String(text || '').replace(/\s+/g, ' ').trim();
@@ -23,7 +24,7 @@ function NotesPage() {
           <Link key={note.id} to={`/note/${note.id}`} className="media-card note-media-card">
             {note.img ? (
               <img
-                src={note.img}
+                src={netlifyImage(note.img, 300)}
                 alt={note.title}
                 className="media-thumb"
                 width="96"

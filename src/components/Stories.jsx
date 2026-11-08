@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Stories.module.css';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 import { formatDate } from '../utils/formatDate';
 
 function excerptOf(text, maxLength = 60) {
@@ -40,7 +41,7 @@ function Stories() {
             
             <div className={styles.imageWrapper}>
               <img
-                src={story.img || 'https://picsum.photos/300/300'}
+                src={netlifyImage(story.img, 200) || 'https://picsum.photos/300/300'}
                 alt={story.title}
                 className={styles.storyImage}
                 width="90"

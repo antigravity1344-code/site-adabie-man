@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import styles from './Hero.module.css';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 
 // تصاویر استاتیک قدیمی
 import hero1 from '../assets/hero-1.jpg';
@@ -80,7 +81,7 @@ function Hero() {
       <div className={styles.heroImageContainer}>
         <img
           key={`img-${currentIndex}`} /* تریگر کردن انیمیشن CSS با تغییر کلید */
-          src={currentSlide.image}
+          src={netlifyImage(currentSlide.image, 480)}
           alt="محمد قنبری"
           className={styles.heroProfileImg}
           onClick={changeImage}

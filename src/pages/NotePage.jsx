@@ -5,6 +5,7 @@ import CopyDownload from '../components/CopyDownload.jsx';
 import ReactMarkdown from 'react-markdown';
 import Comments from '../components/Comments.jsx';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
+import { netlifyImage } from '../utils/netlifyImage';
 
 // اگر متن یادداشت از این طول بیشتر باشد، روی عکس زشت می‌شود
 // و به‌جای آن از چیدمان «عکس بالا + متن پایین» استفاده می‌کنیم
@@ -50,7 +51,7 @@ function NotePage() {
             }}
           >
             <img
-              src={note.img}
+              src={netlifyImage(note.img, 1600)}
               alt={note.title}
               style={{
                 position: 'absolute',
@@ -123,7 +124,7 @@ function NotePage() {
         <article>
           {note.img ? (
             <div className="story-cover-wrapper">
-              <img src={note.img} alt={note.title} className="story-cover-image" />
+              <img src={netlifyImage(note.img, 1200)} alt={note.title} className="story-cover-image" />
             </div>
           ) : null}
 

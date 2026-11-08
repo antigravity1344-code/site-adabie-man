@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
 import AudioPlayer from '../components/AudioPlayer.jsx';
+import { netlifyImage } from '../utils/netlifyImage';
 
 function ReadingPage() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function ReadingPage() {
         <article className="story-container">
           {reading.image && (
             <div className="story-cover-wrapper">
-              <img src={reading.image} alt={reading.title} className="story-cover-image" />
+              <img src={netlifyImage(reading.image, 1200)} alt={reading.title} className="story-cover-image" />
             </div>
           )}
 

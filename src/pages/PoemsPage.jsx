@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 import { supabase } from '../utils/supabaseClient';
 import { COMMENTS_ENABLED } from '../utils/featureFlags';
 
@@ -58,7 +59,7 @@ function PoemCard({ poem, commentCount }) {
         } : undefined}
       >
         <img
-          src={poem.image || 'https://picsum.photos/300/200'}
+          src={netlifyImage(poem.image, 300) || 'https://picsum.photos/300/200'}
           alt={poem.title}
           className="media-thumb"
           width="130"

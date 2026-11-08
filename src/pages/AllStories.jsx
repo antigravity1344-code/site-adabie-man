@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import { getContent } from '../utils/content';
+import { netlifyImage } from '../utils/netlifyImage';
 
 function excerptOf(text, maxLength = 90) {
   const clean = String(text || '').replace(/\s+/g, ' ').trim();
@@ -24,7 +25,7 @@ function AllStories() {
         {allStoriesData.map((story) => (
           <Link key={story.id} to={`/story/${story.id}`} className="media-card">
             <img
-              src={story.img || 'https://picsum.photos/300/300'}
+              src={netlifyImage(story.img, 300) || 'https://picsum.photos/300/300'}
               alt={story.title}
               className="media-thumb"
               width="130"
