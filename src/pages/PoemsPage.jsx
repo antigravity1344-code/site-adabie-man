@@ -48,6 +48,14 @@ function PoemCard({ poem, commentCount }) {
       <div
         style={{ position: 'relative', flexShrink: 0, cursor: (hasAudio || hasVideo) ? 'pointer' : 'default' }}
         onClick={handleClick}
+        role={(hasAudio || hasVideo) ? 'button' : undefined}
+        tabIndex={(hasAudio || hasVideo) ? 0 : undefined}
+        onKeyDown={(hasAudio || hasVideo) ? (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleClick(event);
+          }
+        } : undefined}
       >
         <img
           src={poem.image || 'https://picsum.photos/300/200'}

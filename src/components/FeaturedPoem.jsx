@@ -71,7 +71,17 @@ function FeaturedPoem() {
 
           {/* آیکون پخش روی تصویر — دقیقاً مثل قبل */}
           {(hasAudio || hasVideo) ? (
-            <div className={styles.playOverlay}>
+            <div
+              className={styles.playOverlay}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleClick(event);
+                }
+              }}
+            >
               {/* آیکون توقف فقط موقع پخش صدا نشون داده می‌شه */}
               {playing && hasAudio && !hasVideo ? (
                 <svg viewBox="0 0 24 24" fill="white" width="48" height="48">

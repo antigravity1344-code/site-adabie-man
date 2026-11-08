@@ -84,6 +84,14 @@ function Hero() {
           alt="محمد قنبری"
           className={styles.heroProfileImg}
           onClick={changeImage}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              changeImage();
+            }
+          }}
         />
         <span className={styles.imageHint}>
           کلیک کنید؛ تصاویر دیگر را ببینید
