@@ -3,7 +3,7 @@
 -- نام جدول‌ها و ستون‌ها با Comments.jsx، DailyNotes.jsx، PoemsPage.jsx،
 -- ContactPage.jsx و SubmitWork.jsx یکی است.
 --
--- نیاز به تصمیم: سقف نرخ (هرزنامه) با RLS ساده ساخته نمی‌شود و اینجا نیست.
+-- سقف نرخ هر IP در انتهای فایل است (تریگر). بررسی نظر پیش از نمایش هنوز نیاز به تصمیم است.
 -- نیاز به تصمیم: نظرها بلافاصله برای همه خوانده می‌شوند. اگر پیش از نمایش
 -- باید بررسی شوند، سیاست select و یک ستون وضعیت در کد لازم است.
 
@@ -175,3 +175,107 @@ create policy submission_objects_insert_anon
   on storage.objects for insert
   to anon
   with check (bucket_id in ('submission-images', 'submission-audio'));
+
+-- ===== سقف نرخ بر اساس IP =====
+-- نظر: ۵ تا در ۱۰ دقیقه. تماس: ۳ تا در ۱۰ دقیقه. اثر: ۳ تا در ۱ ساعت.
+-- اگر IP در هدر نباشد (مثلاً SQL Editor)، سقف اعمال نمی‌شود.
+create table if not exists public.rate_limit_events (
+  ip text not null,
+  table_name text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists rate_limit_events_lookup_idx
+  on public.rate_limit_events (ip, table_name, created_at);
+
+alter table public.rate_limit_events enable row level security;
+
+revoke all on table public.rate_limit_events from anon, authenticated;
+
+create or replace function public.enforce_insert_rate_limit()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  raw_headers text;
+  headers json;
+  client_ip text;
+  window_start timestamptz;
+  max_count integer;
+  recent_count integer;
+begin
+  raw_headers := current_setting('request.headers', true);
+  if raw_headers is null or btrim(raw_headers) = '' then
+    return new;
+  end if;
+
+  begin
+    headers := raw_headers::json;
+  exception
+    when others then
+      return new;
+  end;
+
+  client_ip := nullif(btrim(headers->>'cf-connecting-ip'), '');
+  if client_ip is null then
+    client_ip := nullif(btrim(split_part(headers->>'x-forwarded-for', ',', 1)), '');
+  end if;
+  if client_ip is null then
+    return new;
+  end if;
+
+  if tg_table_name = 'comments' then
+    window_start := now() - interval '10 minutes';
+    max_count := 5;
+  elsif tg_table_name = 'contact_messages' then
+    window_start := now() - interval '10 minutes';
+    max_count := 3;
+  elsif tg_table_name = 'submissions' then
+    window_start := now() - interval '1 hour';
+    max_count := 3;
+  else
+    return new;
+  end if;
+
+  delete from public.rate_limit_events
+  where created_at < now() - interval '1 day';
+
+  select count(*) into recent_count
+  from public.rate_limit_events
+  where ip = client_ip
+    and table_name = tg_table_name
+    and created_at >= window_start;
+
+  if recent_count >= max_count then
+    raise exception 'تعداد ارسال بیش از حد مجاز است. لطفاً کمی بعد دوباره تلاش کنید.';
+  end if;
+
+  insert into public.rate_limit_events (ip, table_name)
+  values (client_ip, tg_table_name);
+
+  return new;
+end;
+$$;
+
+revoke all on function public.enforce_insert_rate_limit() from public;
+grant execute on function public.enforce_insert_rate_limit() to anon, authenticated, service_role;
+
+drop trigger if exists comments_rate_limit on public.comments;
+create trigger comments_rate_limit
+  before insert on public.comments
+  for each row
+  execute function public.enforce_insert_rate_limit();
+
+drop trigger if exists contact_messages_rate_limit on public.contact_messages;
+create trigger contact_messages_rate_limit
+  before insert on public.contact_messages
+  for each row
+  execute function public.enforce_insert_rate_limit();
+
+drop trigger if exists submissions_rate_limit on public.submissions;
+create trigger submissions_rate_limit
+  before insert on public.submissions
+  for each row
+  execute function public.enforce_insert_rate_limit();
