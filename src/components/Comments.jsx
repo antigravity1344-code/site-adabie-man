@@ -25,6 +25,7 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
 
     async function loadComments() {
       setLoading(true);
+      setError('');
       const { data, error: fetchError } = await supabase
         .from('comments')
         .select('*')
@@ -119,7 +120,7 @@ function Comments({ contentType, contentId, onSubmitSuccess }) {
 
       {loading ? (
         <p className={styles.empty}>در حال بارگذاری نظرات...</p>
-      ) : comments.length === 0 ? (
+      ) : error ? null : comments.length === 0 ? (
         <p className={styles.empty}>هنوز نظری ثبت نشده. اولین نفر باشید.</p>
       ) : (
         <div className={styles.list}>
