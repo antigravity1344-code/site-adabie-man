@@ -13,6 +13,8 @@ function PoemCard({ poem, commentCount }) {
 
   const hasAudio = !!(poem.audio && poem.audio.trim());
   const hasVideo = !!(poem.video && poem.video.trim());
+  const mediaInteractive = hasAudio || hasVideo;
+  const playLabel = hasVideo ? 'پخش ویدیو' : playing ? 'توقف صوت' : 'پخش صوت';
 
   function handleClick(e) {
     e.preventDefault();
@@ -45,18 +47,18 @@ function PoemCard({ poem, commentCount }) {
   return (
     <div className="media-card poem-media-card">
       {/* تصویر با دکمه‌ی پخش روش */}
-      <div
-        style={{ position: 'relative', flexShrink: 0, cursor: (hasAudio || hasVideo) ? 'pointer' : 'default' }}
-        onClick={handleClick}
-      >
+      <div style={{ position: 'relative', flexShrink: 0 }}>
         <img
           src={poem.image || 'https://picsum.photos/300/200'}
           alt={poem.title}
           className="media-thumb"
         />
 
-        {(hasAudio || hasVideo) ? (
-          <div
+        {mediaInteractive ? (
+          <button
+            type="button"
+            aria-label={playLabel}
+            onClick={handleClick}
             style={{
               position: 'absolute',
               inset: 0,
@@ -69,15 +71,20 @@ function PoemCard({ poem, commentCount }) {
               justifyContent: 'center',
               borderRadius: '8px',
               transition: 'background 180ms ease',
+              border: 'none',
+              padding: 0,
+              font: 'inherit',
+              color: 'inherit',
+              cursor: 'pointer',
             }}
           >
             {playing && hasAudio && !hasVideo ? (
-              <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+              <svg viewBox="0 0 24 24" fill="white" width="32" height="32" aria-hidden="true">
                 <rect x="6" y="4" width="4" height="16" rx="1" />
                 <rect x="14" y="4" width="4" height="16" rx="1" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+              <svg viewBox="0 0 24 24" fill="white" width="32" height="32" aria-hidden="true">
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
@@ -91,7 +98,7 @@ function PoemCard({ poem, commentCount }) {
                 borderRadius: '4px',
               }}>ویدیو</span>
             )}
-          </div>
+          </button>
         ) : null}
 
         {hasAudio && !hasVideo ? (
