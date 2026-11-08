@@ -43,6 +43,10 @@ function Stories() {
                 src={story.img || 'https://picsum.photos/300/300'}
                 alt={story.title}
                 className={styles.storyImage}
+                width="90"
+                height="90"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

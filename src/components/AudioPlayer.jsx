@@ -40,6 +40,7 @@ function AudioPlayer({ src }) {
       <audio
         ref={audioRef}
         src={src}
+        preload="none"
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />

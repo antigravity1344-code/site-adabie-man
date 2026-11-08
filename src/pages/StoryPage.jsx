@@ -52,7 +52,7 @@ function StoryPage() {
             {/* پخش‌کننده فایل صوتی */}
             {story.audio && (
               <div className="story-audio-wrapper">
-                <audio key={story.audio} controls src={story.audio} className="story-audio-player">
+                <audio key={story.audio} controls preload="none" src={story.audio} className="story-audio-player">
                   مرورگر شما از پخش فایل‌های صوتی پشتیبانی نمی‌کند.
                 </audio>
               </div>

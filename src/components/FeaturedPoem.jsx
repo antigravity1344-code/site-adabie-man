@@ -67,6 +67,10 @@ function FeaturedPoem() {
             src={poem.image || 'https://picsum.photos/300/200'}
             alt={poem.title}
             className={styles.poemCoverImg}
+            width="400"
+            height="260"
+            loading="lazy"
+            decoding="async"
           />
 
           {/* آیکون پخش روی تصویر — دقیقاً مثل قبل */}
@@ -113,6 +117,7 @@ function FeaturedPoem() {
           <audio
             ref={audioRef}
             src={poem.audio}
+            preload="none"
             onEnded={() => setPlaying(false)}
           />
         ) : null}

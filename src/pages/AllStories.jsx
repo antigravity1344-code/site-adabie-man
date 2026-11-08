@@ -27,6 +27,10 @@ function AllStories() {
               src={story.img || 'https://picsum.photos/300/300'}
               alt={story.title}
               className="media-thumb"
+              width="130"
+              height="130"
+              loading="lazy"
+              decoding="async"
             />
             <div className="media-body">
               <h3 className="media-title">{story.title}</h3>

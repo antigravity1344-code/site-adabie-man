@@ -26,6 +26,10 @@ function ReadingsPage() {
                 src={reading.image}
                 alt={reading.title}
                 className="media-thumb"
+                width="130"
+                height="130"
+                loading="lazy"
+                decoding="async"
               />
             ) : null}
             <div className="media-body">

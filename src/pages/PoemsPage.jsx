@@ -61,6 +61,10 @@ function PoemCard({ poem, commentCount }) {
           src={poem.image || 'https://picsum.photos/300/200'}
           alt={poem.title}
           className="media-thumb"
+          width="130"
+          height="130"
+          loading="lazy"
+          decoding="async"
         />
 
         {(hasAudio || hasVideo) ? (
@@ -106,6 +110,7 @@ function PoemCard({ poem, commentCount }) {
           <audio
             ref={audioRef}
             src={poem.audio}
+            preload="none"
             onEnded={() => setPlaying(false)}
           />
         ) : null}

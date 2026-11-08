@@ -36,6 +36,28 @@ function App() {
     });
   }, [location.pathname, location.hash]);
 
+  useEffect(() => {
+    const path = location.pathname;
+    const titles = {
+      '/': 'محمد قنبری - سایت شخصی',
+      '/poems': 'شعرها - محمد قنبری',
+      '/stories': 'داستان‌ها - محمد قنبری',
+      '/notes': 'یادداشت‌ها - محمد قنبری',
+      '/readings': 'آرشیو خوانندگان - محمد قنبری',
+      '/submit': 'ارسال اثر - محمد قنبری',
+      '/contact': 'گفتگو - محمد قنبری',
+    };
+    let title = titles[path];
+    if (!title) {
+      if (path.startsWith('/poem/')) title = 'شعر - محمد قنبری';
+      else if (path.startsWith('/story/')) title = 'داستان - محمد قنبری';
+      else if (path.startsWith('/note/')) title = 'یادداشت - محمد قنبری';
+      else if (path.startsWith('/reading/')) title = 'خوانش - محمد قنبری';
+      else title = 'صفحه یافت نشد - محمد قنبری';
+    }
+    document.title = title;
+  }, [location.pathname]);
+
   return (
     <div className="app-container">
       <Header />

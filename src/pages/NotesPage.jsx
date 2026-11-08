@@ -26,6 +26,10 @@ function NotesPage() {
                 src={note.img}
                 alt={note.title}
                 className="media-thumb"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
               />
             ) : null}
             <div className="media-body">
